@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/user/home', 'UserController@home');
+Route::get('/user/package/add', 'AdminController@addIndex');
+Route::post('/user/package/add', 'AdminController@add');
+Route::get('/user/package/list', 'AdminController@packageList');
+Route::get('/user/package/edit/{id}', 'AdminController@edit');
+Route::post('/package/info','PackageController@info');

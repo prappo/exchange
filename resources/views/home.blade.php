@@ -1,26 +1,5 @@
 @extends('layouts.site')
 
-@section('test')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are logged in!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
 
 @section('content')
     <section id="main" class="clearfix home-default pt-none">
@@ -49,18 +28,17 @@
                     </button>
 
 
-
                 </div>
 
                 <!-- Collection of nav links, forms, and other content for toggling -->
                 <div id="navbarCollapse" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
 
-                        <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fa fa-home"></i> Buy-Sell</a></li>
+                        <li><a href="#"><i class="fa fa-money"></i> Payment Proof</a></li>
                         <li><a href="#"><i class="fa fa-book"></i> Terms</a></li>
 
                         <li><a href="#"><i class="fa fa-file-video-o"></i> Videos</a></li>
-
 
 
                         <!--<li><a href="affiliate"></a></li>-->
@@ -75,16 +53,7 @@
     <!-- main -->
     <section id="main" class="clearfix home-default pt-xs">
         <div class="container">
-            <div class="row nsection slides">
-                <div class="col-md-12">
-                    <!-- Jssor Slider Begin -->
-                    <script type="text/javascript"
-                            src="https://www.buyselldollar.com/assets/slider/js/jssor.slider-27.5.0.min.js"></script>
 
-                    <!-- Jssor Slider End -->
-                </div>
-
-            </div>
             <!-- main-content -->
             <div class="main-content">
 
@@ -110,13 +79,11 @@
                                                 <h3><i class="fa fa-send"></i> Send</h3>
 
                                                 <div class="form-group">
-                                                    <select class="form-control form_style_1 input-lg"
-                                                            id="bit_gateway_send"
-                                                            name="bit_gateway_send" onchange="bit_refresh('1');">
-                                                        <option value="6">Neteller USD</option>
-                                                        <option value="7">PM USD</option>
-                                                        <option value="34">Skrill. USD</option>
-                                                        <option value="42" selected>Rocket Agent BDT</option>
+                                                    <select id="send" class="form-control form_style_1 input-lg">
+                                                        @foreach(\App\Packages::where('available','yes')->get() as $package)
+                                                            <option data-purchase="{{$package->purchase}}"
+                                                                    value="{{$package->id}}" data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -140,14 +107,13 @@
                                                 <h3><i class="fa fa-get-pocket"></i> Receive</h3>
 
                                                 <div class="form-group">
-                                                    <select class="form-control form_style_1 input-lg"
-                                                            id="bit_gateway_receive"
-                                                            name="bit_gateway_receive" onchange="bit_refresh('2');">
-                                                        <option value="6">Neteller USD</option>
-                                                        <option value="7">PM USD</option>
-                                                        <option value="34">Skrill. USD</option>
-                                                        <option value="41">bKash Personal BDT</option>
-                                                        <option value="43">Rocket Personal BDT</option>
+                                                    <select id="receive" class="form-control form_style_1 input-lg">
+                                                        @foreach(\App\Packages::where('available','yes')->get() as $p)
+                                                            <option data-purchase="{{$p->purchase}}" data-currency="{{$p->currency}}"
+                                                                    value="{{$p->id}}">{{$p->name}}</option>
+
+                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
@@ -161,7 +127,8 @@
                                             </div>
                                             <div class="col-md-3 hidden-xs hidden-sm">
                                                 <div style="margin-top:50px;">
-                                                    <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg" id="bit_image_receive"
+                                                    <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
+                                                         id="bit_image_receive"
                                                          width="72px" height="72px"
                                                          class="img-circle ">
                                                 </div>
@@ -462,6 +429,58 @@
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="section trending-ads">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4 align="center"><i style="color: green;" class="fa fa-check-circle"></i> Buy
+                                        Verified account</h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="background: #579E3C; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/bet365.jpg')}}">
+                                </div>
+                                <div style="background: #08855F ; height: 20px;color: white;text-align: center"><b>Bet365
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="background: #7E1F67; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/skrill-logo.png')}}">
+                                </div>
+                                <div style="background: #552458 ; height: 20px;color: white;text-align: center"><b>Skrill
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="background: #8DC640; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/neteller-logo.png')}}">
+                                </div>
+                                <div style="background: #7ca049 ; height: 20px;color: white;text-align: center"><b>Netellar
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <br><br>
+                        </div>
+
                         <!-- end : latest buy sell (Completed)-->
 
                     </div>
@@ -474,187 +493,22 @@
 
                         <div class="section">
                             <div class="row">
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/assets/icons/Neteller.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
+
+                                @foreach(\App\Packages::where('available','yes')->get() as $r)
+                                    <div class="col-md-12" style="margin-bottom:10px;">
+                                        <img src="{{$r->logo}}" width="42px"
+                                             height="42px"
+                                             class="img-circle  pull-left">
+                                        <span class="pull-left" style="margin-left:5px;">
 											<span
-                                                    style="font-size:15px;font-weight:bold;">Neteller USD</span><br/>
+                                                    style="font-size:15px;font-weight:bold;">{{$r->name}}</span><br/>
 											<span
-                                                    class="text text-muted">415.47 USD </span>
+                                                    class="text text-muted">{{$r->reserve}} {{$r->currency}} </span>
 										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1513621185_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">PM USD</span><br/>
-											<span
-                                                    class="text text-muted">0.52 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523384114_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Payoneer USD</span><br/>
-											<span
-                                                    class="text text-muted">9 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523384267_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Paypal. USD</span><br/>
-											<span
-                                                    class="text text-muted">00 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423116_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Skrill. USD</span><br/>
-											<span
-                                                    class="text text-muted">0 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423318_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Payeer. USD</span><br/>
-											<span
-                                                    class="text text-muted">9 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423595_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Webmoney. USD</span><br/>
-											<span
-                                                    class="text text-muted">00 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423673_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Coinbase BTC USD</span><br/>
-											<span
-                                                    class="text text-muted">4 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423735_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Coinbase LTC USD</span><br/>
-											<span
-                                                    class="text text-muted">9 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523423803_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Coinbase ETH USD</span><br/>
-											<span
-                                                    class="text text-muted">9 USD </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523424054_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">bKash Agent BDT</span><br/>
-											<span
-                                                    class="text text-muted">1000 BDT </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523424111_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">bKash Personal BDT</span><br/>
-											<span
-                                                    class="text text-muted">19551.12 BDT </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
-                                         width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Rocket Agent BDT</span><br/>
-											<span
-                                                    class="text text-muted">1000 BDT </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1523424224_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">Rocket Personal BDT</span><br/>
-											<span
-                                                    class="text text-muted">46056 BDT </span>
-										</span>
-                                </div>
-                                <br><br>
-                                <div class="col-md-12" style="margin-bottom:10px;">
-                                    <img src="https://www.buyselldollar.com/uploads/1532597060_icon.png" width="42px"
-                                         height="42px"
-                                         class="img-circle  pull-left">
-                                    <span class="pull-left" style="margin-left:5px;">
-											<span
-                                                    style="font-size:15px;font-weight:bold;">DBBL BDT</span><br/>
-											<span
-                                                    class="text text-muted">50000 BDT </span>
-										</span>
-                                </div>
-                                <br><br>
+                                    </div>
+                                    <br><br>
+                                @endforeach
+
 
                             </div>
 
@@ -674,111 +528,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Neteller</td>
-                                        <td>88</td>
-                                        <td>94</td>
+                                    @foreach(\App\Packages::where('available','yes')->get() as $rate)
+                                        <tr>
+                                            <td>{{$rate->name}}</td>
+                                            <td>{{$rate->purchase}}</td>
+                                            <td>{{$rate->sell}}</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>PM</td>
-                                        <td>84</td>
-                                        <td>88</td>
+                                        </tr>
 
-                                    </tr>
-                                    <tr>
-                                        <td>Payoneer</td>
-                                        <td>0</td>
-                                        <td>0</td>
+                                    @endforeach
 
-                                    </tr>
-                                    <tr>
-                                        <td>Paypal.</td>
-                                        <td>0</td>
-                                        <td>0</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>Skrill.</td>
-                                        <td>88</td>
-                                        <td>95</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Payeer.</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Webmoney.</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Coinbase BTC</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Coinbase LTC</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Coinbase ETH</td>
-                                        <td>0</td>
-                                        <td>0</td>
-
-                                    </tr>
-                                    <!--<tr>
-                <td>Paypal</td>
-                <td>77</td>
-                <td>82</td>
-            </tr>
-            <tr>
-                <td>Neteller</td>
-                <td>86</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>Skrill</td>
-                <td>86</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>Payza</td>
-                <td>82</td>
-                <td>85</td>
-            </tr>
-            <tr>
-                <td>WebMoney</td>
-                <td>80</td>
-                <td>87</td>
-            </tr>
-            <tr>
-                <td>LiteCoin</td>
-                <td>83</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>Bitcoin</td>
-                <td>83</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>Coinbase</td>
-                <td>83</td>
-                <td>90</td>
-            </tr>
-            <tr>
-                <td>Payeer</td>
-                <td>82</td>
-                <td>89</td>
-            </tr>-->
                                     </tbody>
                                 </table>
                             </div>
@@ -789,7 +549,7 @@
                             Track exchange</h4>
 
                         <div class="section">
-                            <form action="https://www.buyselldollar.com/track" method="POST">
+                            <form>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="order_id"
                                            placeholder="Type here exchange id">
@@ -801,12 +561,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
 
+        <!-- ****************************************************************************************** -->
 
-                <!-- ****************************************************************************************** -->
 
-
-                <!-- container -->
+        <!-- container -->
     </section><!-- main -->
 @endsection

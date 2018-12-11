@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="exchangesoftware.info">
-    <meta name="description" content="buyselldollar.com is the trusted website for dollar buy, sell and exchange in Bangladesh. Buy &amp; Sell Dollar 100% reliable and always sufficient in site, we change all kind of virtual dollar like neteller, Skrill, Paypal, Perfect Money in Banglade.">
-    <meta name="keywords" content="dollar buy sell in bd, online dollar buy sell in bangladesh, buy neteller dollar in bangladesh, buy and sell skrill dollar in bd, skrill dollar buy sell, dollar buy sell exchange, perfect money to bkash, bkash to neteller, paypal dollar buy sell bd">
+    <meta name="description"
+          content="buyselldollar.com is the trusted website for dollar buy, sell and exchange in Bangladesh. Buy &amp; Sell Dollar 100% reliable and always sufficient in site, we change all kind of virtual dollar like neteller, Skrill, Paypal, Perfect Money in Banglade.">
+    <meta name="keywords"
+          content="dollar buy sell in bd, online dollar buy sell in bangladesh, buy neteller dollar in bangladesh, buy and sell skrill dollar in bd, skrill dollar buy sell, dollar buy sell exchange, perfect money to bkash, bkash to neteller, paypal dollar buy sell bd">
 
     <title>Dollar Buy, Sell &amp; Exchange in Bangladesh | Buy Sell Dollar in BD</title>
 
@@ -45,35 +46,42 @@
                     <div class="col-md-5 col-xs-6">
 
 
-
                         <ul class="list-inline">
                             <!-- Authentication Links -->
                             @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><b><i class="fa fa-sign-in"></i> {{ __('Login') }}</b></a>
+                                <a class="nav-link" href="{{ route('login') }}"><b><i
+                                                class="fa fa-sign-in"></i> {{ __('Login') }}</b></a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}"><b><i class="fa fa-edit"></i> {{ __('Register') }}</b></a>
+                                    <a class="nav-link" href="{{ route('register') }}"><b><i
+                                                    class="fa fa-edit"></i> {{ __('Register') }}</b></a>
                                 </li>
                             @endif
                             @else
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                                       href="{{url('/user/profile')}}" role="button" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <i class="fa fa-user"></i> {{ Auth::user()->name }}
+                                    </a>
+                                    <b style="color:white">|</b>
+                                    <a href="{{url('/user/home')}}"><i class="fa fa-home"></i> Dashboard</a>
+                                    <b style="color:white">|</b>
+
+                                    {{--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-sign-out"></i> {{ __('Logout') }}
                                     </a>
 
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        @csrf
+                                    </form>
+                                    {{--</div>--}}
                                 </li>
                                 @endguest
                         </ul>
@@ -142,7 +150,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="http://disputebills.com"><img src="{{url('/logo.png')}}" alt="Dispute Bills">
+                    <a class="navbar-brand" href="{{url('/')}}"><img src="{{url('/logo.png')}}" alt="Dispute Bills">
                     </a>
                 </div>
 
@@ -175,14 +183,12 @@
     <!-- footer-top -->
 
 
-
     <div class="footer-bottom clearfix text-center">
         <div class="container">
             <p>All Rights Reserved &copy; Comapny Name</p>
         </div>
     </div><!-- footer-bottom -->
 </footer><!-- footer -->
-
 
 
 <!-- JS -->
@@ -193,6 +199,138 @@
 <script src="{{url('/js/price-range.js')}}"></script>
 <script src="{{url('/js/jquery.countdown.js')}}"></script>
 <script src="{{url('/js/custom.js')}}"></script>
+
+<script>
+
+
+    function bit_calculator() {
+        var element = $('#receive').find('option:selected');
+        var element1 = $('#send').find('option:selected');
+        var sendCurrency = element1.attr('data-currency');
+        var receiveCurrency = element.attr('data-currency');
+
+        var sendPurchase = element1.attr('data-purchase');
+        var receivePurchase = element.attr('data-purchase');
+        var result = "";
+        if (sendCurrency == receiveCurrency) {
+            $('#bit_amount_receive').val($('#bit_amount_send').val());
+        } else if (sendCurrency == 'USD' && receiveCurrency == 'BDT') {
+            result = parseInt(element1.attr('data-purchase')) * parseInt($('#bit_amount_send').val());
+            $('#bit_amount_receive').val(result);
+        } else {
+            result = parseInt(element1.attr('data-purchase')) / parseInt($('#bit_amount_send').val());
+            $('#bit_amount_receive').val(result);
+        }
+
+
+        console.log("Result : " + result);
+    }
+
+    function boot() {
+        var element = $(this).find('option:selected');
+        var purchase = element.attr("data-purchase");
+
+
+        var id = element.val();
+        $.ajax({
+            url: '{{url('/package/info')}}',
+            type: 'POST',
+            data: {
+                'id': id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+                $('#bit_image_receive').attr('src', data['data'][0]['logo']);
+                if (data['data'][0]['currency'] == 'BDT') {
+                    $('#bit_amount_send').val(95);
+
+
+                } else {
+                    $('#bit_amount_send').val(1);
+                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
+                }
+
+                $('#bit_reserve').html(data['data'][0]['reserve']);
+
+                console.log(data['data'][0]);
+            }
+
+        });
+
+
+        bit_calculator();
+    }
+    boot();
+    bit_calculator();
+
+    $('#send').on('change', function (e) {
+        var element = $(this).find('option:selected');
+        var purchase = element.attr("data-purchase");
+
+
+        var id = $(this).val();
+        $.ajax({
+            url: '{{url('/package/info')}}',
+            type: 'POST',
+            data: {
+                'id': id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+                $('#bit_image_send').attr('src', data['data'][0]['logo']);
+                if (data['data'][0]['currency'] == 'BDT') {
+                    $('#bit_amount_send').val(95);
+
+
+                } else {
+                    $('#bit_amount_send').val(1);
+                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
+                }
+
+                console.log(data['data'][0]);
+            }
+
+        });
+
+        bit_calculator();
+    });
+
+    $('#receive').on('change', function (e) {
+        var element = $(this).find('option:selected');
+        var purchase = element.attr("data-purchase");
+
+
+        var id = $(this).val();
+        $.ajax({
+            url: '{{url('/package/info')}}',
+            type: 'POST',
+            data: {
+                'id': id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+                $('#bit_image_receive').attr('src', data['data'][0]['logo']);
+                if (data['data'][0]['currency'] == 'BDT') {
+                    $('#bit_amount_send').val(95);
+
+
+                } else {
+                    $('#bit_amount_send').val(1);
+                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
+                }
+
+                $('#bit_reserve').html(data['data'][0]['reserve']);
+
+                console.log(data['data'][0]);
+            }
+
+        });
+
+        bit_calculator();
+    });
+
+
+</script>
 
 </body>
 </html>
