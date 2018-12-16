@@ -18,10 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::get('/page/contact','Page@contact');
-Route::get('/page/notice','Page@notice');
-Route::get('/page/testimonials','Page@testimonials');
-Route::get('/page/exchange','Page@exchange');
+Route::get('/page/contact', 'Page@contact');
+Route::get('/page/notice', 'Page@notice');
+Route::get('/page/testimonials', 'Page@testimonials');
+Route::get('/page/exchange', 'Page@exchange');
+Route::get('/page/{id}', 'Page@page');
 
 
 Route::get('/', 'HomeController@index')->name('home');
@@ -53,13 +54,14 @@ Route::post('/user/slider/delete', 'SliderController@delete');
 Route::get('/user/review', 'ReviewController@addIndex');
 Route::post('/user/review/add', 'ReviewController@add');
 Route::get('/user/review/list', 'ReviewController@reviewList');
-Route::post('/user/review/delete','ReviewController@delete');
+Route::post('/user/review/delete', 'ReviewController@delete');
 
 
-Route::get('/user/profile','ProfileController@index');
-Route::post('/user/profile/update','ProfileController@update');
+Route::get('/user/profile', 'ProfileController@index');
+Route::post('/user/profile/update', 'ProfileController@update');
 
-
+Route::get('/user/settings', 'AdminController@settingsPage');
+Route::post('/user/settings/save', 'AdminController@saveSettings');
 
 
 Route::get('/exchange/{send}/{receive}/{amount}/{receiveAmount}', 'TransactionController@transaction');

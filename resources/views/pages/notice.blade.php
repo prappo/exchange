@@ -11,9 +11,7 @@
                 <div class="section trending-ads">
                     <div class="row">
                         <div class="col-md-12">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, consequatur corporis culpa,
-                                cum cupiditate deleniti dolores dolorum enim et expedita illo ipsa nisi omnis reiciendis
-                                rerum soluta tempora veniam! At!</p>
+                            <p>{!! \App\Http\Controllers\SettingsController::get('notice') !!}</p>
                         </div>
                     </div>
                     <br><br><br><br><br><br><br><br><br><br>

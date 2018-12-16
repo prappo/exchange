@@ -15,6 +15,7 @@
                                         <th>ID</th>
 
                                         <th>Title</th>
+                                        <th>Position</th>
                                         <th>Content</th>
                                         <th>Action</th>
 
@@ -29,6 +30,7 @@
 
                                             <td>{{$page->id}}</td>
                                             <td>{{$page->title}}</td>
+                                            <td>{{$page->position}}</td>
                                             <td>{{$page->content}}</td>
 
                                             <td><a href="{{url('/user/page/edit/').'/'.$page->id}}"

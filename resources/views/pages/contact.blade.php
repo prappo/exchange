@@ -3,25 +3,27 @@
 
     <section id="main" class="clearfix home-default pt-xs">
         <div class="container">
-            <div class="main-content">
+            <div style="background: white;padding:10px" class="main-content">
                 <br>
                 <div class="row">
                     <div class="col-md-5">
                         <p><b>Address</b></p>
                         <p>
-                            <b><i class="fa fa-skype"></i> Skype : </b> your_skype_id
+                            <b><i class="fa fa-skype"></i> Skype :
+                            </b> {{\App\Http\Controllers\SettingsController::get('skype')}}
                         </p>
                         <p>
-                            <b><i class="fa fa-whatsapp"></i> Whatsapp : </b> 01XXXXXXXXX
+                            <b><i class="fa fa-whatsapp"></i> Whatsapp :
+                            </b> {{\App\Http\Controllers\SettingsController::get('whatsapp')}}
                         </p>
 
                         <p>
-                            <b><i class="fa fa-envelope"></i> Support Mail : </b> support@email.com
+                            <b><i class="fa fa-envelope"></i> Support Mail :
+                            </b> {{\App\Http\Controllers\SettingsController::get('email')}}
                         </p>
                         <p>
                             <b><i class="fa fa-home"></i> Address : </b> <br>
-                            1/2/3,<br>
-                            Dhanmondi,Dhaka
+                            {!! \App\Http\Controllers\SettingsController::get('address')!!}
                         </p>
 
 

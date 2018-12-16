@@ -29,10 +29,15 @@ class PageController extends Controller
 
     public function add(Request $request)
     {
+        if ($request->title == "") {
+            return "Page Title Required";
+        }
+
         try {
             $page = new Page();
             $page->title = $request->title;
             $page->content = $request->data;
+            $page->position = $request->position;
             $page->save();
             return "success";
         } catch (\Exception $exception) {

@@ -55,6 +55,9 @@
                     @endif
                     @else
                         @if(Auth::user()->type == "admin")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/user/home')}}">Transactions</a>
+                            </li>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -71,7 +74,6 @@
                                     <a class="dropdown-item" href="{{url('/user/slider/list')}}">
                                         <i class="fa fa-list"></i> Slider List
                                     </a>
-
 
 
                                 </div>
@@ -94,7 +96,6 @@
                                     </a>
 
 
-
                                 </div>
                             </li>
 
@@ -115,21 +116,18 @@
                                     </a>
 
 
-
                                 </div>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/user/transactions')}}">Transactions</a>
-                            </li>
+
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/user/review/list')}}">Reviews</a>
                             </li>
 
-                            {{--<li class="nav-item">--}}
-                                {{--<a class="nav-link" href="{{url('/user/settings')}}">Settings</a>--}}
-                            {{--</li>--}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/user/settings')}}">Settings</a>
+                            </li>
 
                         @else
 
@@ -138,7 +136,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/user/exchanges')}}">My Exchanges</a>
+                                <a class="nav-link" href="{{url('/user/home')}}">My Exchanges</a>
                             </li>
 
                             <li class="nav-item">
@@ -148,7 +146,7 @@
                                 <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/contact')}}">Contact</a>
+                                <a class="nav-link" href="{{url('/page/contact')}}">Contact</a>
                             </li>
                         @endif
 

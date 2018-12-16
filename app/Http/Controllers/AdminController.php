@@ -24,6 +24,7 @@ class AdminController extends Controller
         try {
             $package = new Packages();
             $package->name = $request->name;
+            $package->account = $request->account;
             $package->logo = $request->logo;
             $package->description = $request->description;
             $package->purchase = $request->purchase;
@@ -44,6 +45,7 @@ class AdminController extends Controller
         try {
             Packages::where('id', $request->id)->update([
                 'name' => $request->name,
+                'account' => $request->account,
                 'logo' => $request->logo,
                 'description' => $request->description,
                 'purchase' => $request->purchase,
@@ -70,6 +72,23 @@ class AdminController extends Controller
     public function packageList()
     {
         return view('admin.packageList');
+    }
+
+    public function settingsPage()
+    {
+        return view('admin.settings');
+    }
+
+    public function saveSettings(Request $request)
+    {
+
+        foreach ($request->toArray() as $key => $value) {
+
+            if ($key != '_token') {
+                SettingsController::set($key, $value);
+            }
+        }
+        return "Saved. Go back" . "<a href='" . url('/user/settings') . "'>Click here</a>";
     }
 
 

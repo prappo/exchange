@@ -18,6 +18,16 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Account</label>
+
+                            <div class="col-md-6">
+                                <input id="account" value="{{$data->account}}" type="text" class="form-control">
+
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="logo" class="col-md-4 col-form-label text-md-right">Logo Link</label>
 
                             <div class="col-md-6">
@@ -115,7 +125,7 @@
 
         $(document).ready(function (e) {
             $('#update').click(function () {
-                var name = $("#name").val(), logo = $('#logo').val(), description = $('#description').val(), purchase = $('#purchase').val(), sell = $('#sell').val(), reserve = $('#reserve').val();
+                var name = $("#name").val(), logo = $('#logo').val(), description = $('#description').val(), purchase = $('#purchase').val(), sell = $('#sell').val(), reserve = $('#reserve').val(), account = $('#account').val();
                 var available = "";
 
                 if ($('#available').is(':checked')) {
@@ -134,6 +144,7 @@
                     data: {
                         'id': '{{$data->id}}',
                         'name': name,
+                        'account': account,
                         'logo': logo,
                         'description': description,
                         'purchase': purchase,

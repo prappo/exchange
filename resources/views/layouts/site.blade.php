@@ -47,12 +47,12 @@
             border: 3px solid #E8E8E8;
         }
 
-        .circle{
+        .circle {
             border-radius: 40%;
 
         }
 
-        .nva>ul>li>a:hover {
+        .nva > ul > li > a:hover {
 
             border-width: 0px;
             border-color: rgb(0, 0, 0);
@@ -69,9 +69,10 @@
             padding: 7px !important;
             margin-top: 8px;
 
-
         }
     </style>
+
+    @yield('css')
 </head>
 <body>
 
@@ -134,20 +135,23 @@
                     <div class="col-md-2 hidden-xs hidden-sm">
                         <ul class="list-inline pull-right">
                             <li>
-                                <a class="fa fa-facebook-square" href="#"
+                                <a class="fa fa-facebook-square"
+                                   href="{{\App\Http\Controllers\SettingsController::get('facebook')}}"
                                    target="_blank"></a>
                             </li>
                             <li>
-                                <a class="fa fa-google-plus-square" href="#"
+                                <a class="fa fa-google-plus-square"
+                                   href="{{\App\Http\Controllers\SettingsController::get('gPlus')}}"
                                    target="_blank"></a>
                             </li>
                             <li>
-                                <a class="fa fa-twitter-square" href="#"
+                                <a class="fa fa-twitter-square"
+                                   href="{{\App\Http\Controllers\SettingsController::get('twitter')}}"
                                    target="_blank"></a>
                             </li>
                             <li>
                                 <a class="fa fa-youtube-square"
-                                   href="#"
+                                   href="{{\App\Http\Controllers\SettingsController::get('youtube')}}"
                                    target="_blank"></a>
                             </li>
                         </ul>
@@ -161,7 +165,7 @@
                     <!-- start : phone numbers-->
                     <div class="col-md-5 col-xs-6 pull-right">
                         <a class="pull-right" href="#">
-                            <i class="fa fa-phone ml-sm"></i> 017XXXXXXXX
+                            <i class="fa fa-phone ml-sm"></i> {{\App\Http\Controllers\SettingsController::get('phone')}}
                         </a>
                         <!--<span class="pull-right">
                             <div class=""
@@ -226,6 +230,10 @@
                     <li><a href="{{url('/page/testimonials')}}"> TESTIMONIALS</a></li>
 
                     <li><a href="{{url('/page/contact')}}"> CONTACT</a></li>
+                    @foreach(\App\Page::where('position','Top')->get() as $page)
+                        <li><a href="{{url('/page')}}/{{$page->id}}"> {{$page->title}}</a></li>
+
+                    @endforeach
 
                 </ul>
             </div>
@@ -256,26 +264,38 @@
             <div style="padding-top: 20px;padding-left: 10%;padding-bottom: 30px;" class="col-md-4">
                 <p><b><h3>Quick Links</h3></b></p>
                 <ul>
-                    <li><a href="#"><h4>Buy-Sell</h4></a></li>
-                    <li><a href="#"><h4>Testimonials</h4></a></li>
-                    <li><a href="#"><h4>Affliate</h4></a></li>
+                    {{--<li><a href="#"><h4>Buy-Sell</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>Testimonials</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>Affliate</h4></a></li>--}}
+                    @foreach(\App\Page::where('position','Bottom Left')->get() as $page)
+                        <li><a href="{{url('/page')}}/{{$page->id}}"><h4>{{$page->title}}</h4></a></li>
+
+                    @endforeach
                 </ul>
             </div>
             <div style="padding-top: 20px;padding-left: 10%;padding-bottom: 30px;" class="col-md-4">
                 <p><b><h3>Terms & Support</h3></b></p>
                 <ul>
-                    <li><a href="#"><h4>Frequently Asked Questions</h4></a></li>
-                    <li><a href="#"><h4>Terms Of Services</h4></a></li>
-                    <li><a href="#"><h4>Privacy Policy</h4></a></li>
+                    {{--<li><a href="#"><h4>Frequently Asked Questions</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>Terms Of Services</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>Privacy Policy</h4></a></li>--}}
+                    @foreach(\App\Page::where('position','Bottom Middle')->get() as $page)
+                        <li><a href="{{url('/page')}}/{{$page->id}}"><h4>{{$page->title}}</h4></a></li>
+
+                    @endforeach
                 </ul>
             </div>
 
             <div style="padding-top: 20px;padding-left: 10%;padding-bottom: 30px;" class="col-md-4">
                 <p><b><h3>Language</h3></b></p>
                 <ul>
-                    <li><a href="#"><h4>English</h4></a></li>
-                    <li><a href="#"><h4>About</h4></a></li>
-                    <li><a href="#"><h4>Contact</h4></a></li>
+                    {{--<li><a href="#"><h4>English</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>About</h4></a></li>--}}
+                    {{--<li><a href="#"><h4>Contact</h4></a></li>--}}
+                    @foreach(\App\Page::where('position','Bottom Right')->get() as $page)
+                        <li><a href="{{url('/page')}}/{{$page->id}}"><h4>{{$page->title}}</h4></a></li>
+
+                    @endforeach
                 </ul>
             </div>
 

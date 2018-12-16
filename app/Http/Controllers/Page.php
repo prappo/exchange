@@ -21,7 +21,14 @@ class Page extends Controller
         return view('pages.notice');
     }
 
-    public function exchange(){
+    public function exchange()
+    {
         return view('pages.exchange');
+    }
+
+    public function page($id)
+    {
+        $content = \App\Page::where('id',$id)->value('content');
+        return view('page', compact('content'));
     }
 }
