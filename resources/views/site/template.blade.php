@@ -47,12 +47,7 @@
             border: 3px solid #E8E8E8;
         }
 
-        .circle{
-            border-radius: 40%;
-
-        }
-
-        .nva>ul>li>a:hover {
+        .m {
 
             border-width: 0px;
             border-color: rgb(0, 0, 0);
@@ -68,7 +63,6 @@
             text-align: center !important;
             padding: 7px !important;
             margin-top: 8px;
-
 
         }
     </style>
@@ -184,6 +178,7 @@
 </header>
 <!-- header -->
 
+
 <section id="main" class="clearfix home-default pt-none">
     <div class="container">
         <div class="news-scroll">
@@ -232,8 +227,36 @@
         </nav>
     </div>
 </section>
+<!-- main -->
+<section id="main" class="clearfix home-default pt-xs">
+    <div class="container">
 
-@yield('content')
+        <!-- main-content -->
+        <div class="main-content">
+
+
+            <div class="row">
+
+                <div class="col-md-9">
+
+
+                    @yield('content')
+
+                </div>
+                <!-- end : col md 9 left col-->
+
+                <!-- right col-->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ****************************************************************************************** -->
+
+
+    <!-- container -->
+</section><!-- main -->
 
 
 <!-- Bootstrap core JavaScript
@@ -303,13 +326,9 @@
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script src="{{url('/js/custom.js')}}"></script>
-
+@yield('js')
 <script>
 
-
-    if ($(window).width() < 514) {
-        $('#sliders').remove();
-    }
 
     function bit_calculator() {
         var element = $('#receive').find('option:selected');

@@ -75,7 +75,7 @@
  
 @media screen and (min-width: 600px) {
   .nav li {
-    width: 160px;
+    width: 140px;
     border-bottom: none;
     height: 50px;
     line-height: 50px;
@@ -128,7 +128,20 @@
 .navbar-custom .navbar-nav > .active > a:hover,
 .navbar-custom .navbar-nav > .active > a:focus,
 .navbar-custom .navbar-nav > .open >a {
-    text-decoration: center;
+	border-width: 0px;
+	border-color: rgb(0, 0, 0);
+	border-style: solid;
+	border-radius: 44px;
+	background-image: -moz-linear-gradient(180deg, rgb(228, 98, 60) 0%, rgb(239, 152, 57) 100%);
+	background-image: -webkit-linear-gradient(180deg, rgb(228, 98, 60) 0%, rgb(239, 152, 57) 100%);
+	background-image: -ms-linear-gradient(180deg, rgb(228, 98, 60) 0%, rgb(239, 152, 57) 100%);
+	/*width: 120px;*/
+	/*height: auto;*/
+	z-index: 3;
+	color: white !important;
+	text-align: center !important;
+	padding: 7px !important;
+	margin-top: 8px;
     /*background-color: #9DA1A0;*/
 }
 

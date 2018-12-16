@@ -2,64 +2,34 @@
 
 
 @section('content')
-    <section id="main" class="clearfix home-default pt-none">
-        <div class="container">
-            <div class="news-scroll">
-                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> আপনার
-                    অর্ডার নিশ্চিত করার পরে, লেনদেনটি সম্পন্ন হতে ২০মিনিটের বেশি সময় লাগলে ফোন করার জন্য অনুরোধ করা
-                    হলো।
-                </marquee>
-            </div>
-        </div>
-    </section>
 
-
-    <section id="main" class="clearfix home-default pt-none">
-        <div class="container">
-            <nav class="navbar navbar-custom">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-
-                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-
-                </div>
-
-                <!-- Collection of nav links, forms, and other content for toggling -->
-                <div id="navbarCollapse" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-
-                        <li><a href="#"><i class="fa fa-home"></i> Buy-Sell</a></li>
-                        <li><a href="#"><i class="fa fa-money"></i> Payment Proof</a></li>
-                        <li><a href="#"><i class="fa fa-book"></i> Terms</a></li>
-
-                        <li><a href="#"><i class="fa fa-file-video-o"></i> Videos</a></li>
-
-
-                        <!--<li><a href="affiliate"></a></li>-->
-
-                        <li><a href="#"><i class="fa fa-envelope"></i> Contact</a></li>
-
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </section>
     <!-- main -->
     <section id="main" class="clearfix home-default pt-xs">
         <div class="container">
 
             <!-- main-content -->
             <div class="main-content">
+                <div id="sliders" class="row">
+                    <div class="col-md-12">
+                        <div class="slider">
+                            @foreach(\App\Slider::all() as $slider)
+                                <div>
+
+                                    <img width="100%" height="80%"
+                                         src="{{$slider->image}}">
+                                </div>
+
+                            @endforeach
+
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
 
                     <div class="col-md-9">
+
+
                         <!-- buy-sell | send-Rcv form-->
                         <div class="msection mt-xs">
                             <div class="row" id="bit_exchange_box">
@@ -82,7 +52,8 @@
                                                     <select id="send" class="form-control form_style_1 input-lg">
                                                         @foreach(\App\Packages::where('available','yes')->get() as $package)
                                                             <option data-purchase="{{$package->purchase}}"
-                                                                    value="{{$package->id}}" data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                                    value="{{$package->id}}"
+                                                                    data-currency="{{$package->currency}}">{{$package->name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -109,7 +80,8 @@
                                                 <div class="form-group">
                                                     <select id="receive" class="form-control form_style_1 input-lg">
                                                         @foreach(\App\Packages::where('available','yes')->get() as $p)
-                                                            <option data-purchase="{{$p->purchase}}" data-currency="{{$p->currency}}"
+                                                            <option data-purchase="{{$p->purchase}}"
+                                                                    data-currency="{{$p->currency}}"
                                                                     value="{{$p->id}}">{{$p->name}}</option>
 
                                                         @endforeach
@@ -155,8 +127,8 @@
                                                value="prappo.prince@gmail.com">
 
                                         <center>
-                                            <button type="button" class="btn btn-primary btn-lg"
-                                                    onclick="bit_exchange_step_1();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                            <button id="exchange" type="button" class="btn btn-primary btn-lg"
+                                            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
                                                         class="fa fa-refresh"></i> Exchange&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </button>
                                         </center>
@@ -193,7 +165,8 @@
 
                                         <tr>
                                             <td>
-                                                <img src="https://www.buyselldollar.com/uploads/1523423116_icon.png"
+                                                <img class="img-circle"
+                                                     src="https://www.buyselldollar.com/uploads/1523423116_icon.png"
                                                      width="20px" height="20">
                                                 <span class="hidden-xs">
                                              Skrill. USD                                        </span>
@@ -264,7 +237,8 @@
 
                                         <tr>
                                             <td>
-                                                <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
+                                                <img class="img-circle"
+                                                     src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
                                                      width="20px" height="20">
                                                 <span class="hidden-xs">
                                              Rocket Agent BDT                                        </span>
@@ -302,126 +276,6 @@
                                                 <span class="label label-success"><i
                                                             class="fa fa-check"></i> Complete</span></td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="https://www.buyselldollar.com/assets/icons/Neteller.png"
-                                                     width="20px" height="20">
-                                                <span class="hidden-xs">
-                                             Neteller USD                                        </span>
-                                            </td>
-
-                                            <td>
-                                                <img src="https://www.buyselldollar.com/uploads/1523424111_icon.png"
-                                                     width="20px" height="20">
-
-                                                <span class="hidden-xs">
-                                             bKash Personal BDT                                        </span>
-                                            </td>
-
-                                            <td>
-                                                27
-                                                <span class="hidden-xs">
-                                            USD                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            $                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                        <span class="hidden-xs">
-                                            Monir1829                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            Monir                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                                <span class="label label-default">10/12/2018</span></td>
-
-                                            <td class="">
-                                                <span class="label label-success"><i
-                                                            class="fa fa-check"></i> Complete</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
-                                                     width="20px" height="20">
-                                                <span class="hidden-xs">
-                                             Rocket Agent BDT                                        </span>
-                                            </td>
-
-                                            <td>
-                                                <img src="https://www.buyselldollar.com/assets/icons/Neteller.png"
-                                                     width="20px" height="20">
-
-                                                <span class="hidden-xs">
-                                             Neteller USD                                        </span>
-                                            </td>
-
-                                            <td>
-                                                4750
-                                                <span class="hidden-xs">
-                                            BDT                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            ৳                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                        <span class="hidden-xs">
-                                            Manik                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            Manik                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                                <span class="label label-default">10/12/2018</span></td>
-
-                                            <td class="">
-                                                <span class="label label-success"><i
-                                                            class="fa fa-check"></i> Complete</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <img src="https://www.buyselldollar.com/assets/icons/Neteller.png"
-                                                     width="20px" height="20">
-                                                <span class="hidden-xs">
-                                             Neteller USD                                        </span>
-                                            </td>
-
-                                            <td>
-                                                <img src="https://www.buyselldollar.com/uploads/1523424224_icon.png"
-                                                     width="20px" height="20">
-
-                                                <span class="hidden-xs">
-                                             Rocket Personal BDT                                        </span>
-                                            </td>
-
-                                            <td>
-                                                114
-                                                <span class="hidden-xs">
-                                            USD                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            $                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                        <span class="hidden-xs">
-                                            riyad3870                                        </span>
-
-                                                <span class="hidden-sm hidden-md hidden-lg">
-                                            riyad                                        </span>
-                                            </td>
-
-                                            <td class="">
-                                                <span class="label label-default">10/12/2018</span></td>
-
-                                            <td class="">
-                                                <span class="label label-success"><i
-                                                            class="fa fa-check"></i> Complete</span></td>
-                                        </tr>
 
 
                                         </tbody>
@@ -430,15 +284,44 @@
                             </div>
                         </div>
 
+                        <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px; padding-left:15px;">
+                            Testimonials
+                        </h4>
 
                         <div class="section trending-ads">
                             <div class="row">
-                                <div class="col-md-8">
-                                    <h4 align="center"><i style="color: green;" class="fa fa-check-circle"></i> Buy
-                                        Verified account</h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <a class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+                                <div class="col-md-12 review">
+                                    <div class="col-md-4">
+                                        <p><b>Mr. Malek</b></p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam
+                                            aut, consequuntur, dolor illum iure laboriosam laudantium necessitatibus
+                                            nihil omnis quam quibusdam ratione repellat suscipit ut voluptatum?
+                                            Asperiores, neque.</p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p><b>Mr. Malek</b></p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam
+                                            aut, consequuntur, dolor illum iure laboriosam laudantium necessitatibus
+                                            nihil omnis quam quibusdam ratione repellat suscipit ut voluptatum?
+                                            Asperiores, neque.</p>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p><b>Mr. Malek</b></p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam
+                                            aut, consequuntur, dolor illum iure laboriosam laudantium necessitatibus
+                                            nihil omnis quam quibusdam ratione repellat suscipit ut voluptatum?
+                                            Asperiores, neque.</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p><b>Mr. Malek</b></p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam
+                                            aut, consequuntur, dolor illum iure laboriosam laudantium necessitatibus
+                                            nihil omnis quam quibusdam ratione repellat suscipit ut voluptatum?
+                                            Asperiores, neque.</p>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -477,9 +360,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <br><br>
-                        </div>
 
                         <!-- end : latest buy sell (Completed)-->
 
@@ -560,6 +440,48 @@
                             </form>
                         </div>
                     </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="section trending-ads">
+                            <div class="row">
+                                <div align="center" class="col-md-2"><img src="{{url('/verified.jpeg')}}"></div>
+
+                                <div style="padding-top:15px" class="col-md-6">
+                                    <h2 align="center"> Buy
+                                        Verified account</h2>
+                                </div>
+                                <div style="padding-top:30px" class="col-md-4">
+                                    <a class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row autoplay">
+
+
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/bet365.jpg')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;"
+                                      src="{{url('/logos/neteller-logo.png')}}"></div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/bitcoin.png')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/skrill-logo.png')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/paypal.png')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/payoneer.png')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/rocket.jpg')}}">
+                            </div>
+                            <div><img style="border-radius: 50%; padding: 5px;" src="{{url('/logos/bkash.jpeg')}}">
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
                 </div>
             </div>
         </div>

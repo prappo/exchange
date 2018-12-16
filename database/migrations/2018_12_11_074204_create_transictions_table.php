@@ -18,7 +18,9 @@ class CreateTransictionsTable extends Migration
             $table->string('transaction_id');
             $table->string('userId');
             $table->string('send');
+            $table->string('sendAmount');
             $table->string('receive');
+            $table->string('receiveAmount');
             $table->string('amount');
             $table->string('details')->nullable();
             $table->string('status');

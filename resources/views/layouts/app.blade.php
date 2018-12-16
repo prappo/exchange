@@ -11,7 +11,8 @@
 
     <!-- Scripts -->
 
-{{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -54,21 +55,81 @@
                     @endif
                     @else
                         @if(Auth::user()->type == "admin")
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/user/package/add')}}">Add Package</a>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Slider <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{url('/user/slider/add')}}">
+                                        <i class="fa fa-plus"></i> Add Slider
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{url('/user/slider/list')}}">
+                                        <i class="fa fa-list"></i> Slider List
+                                    </a>
+
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Package <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{url('/user/package/add')}}">
+                                        <i class="fa fa-plus"></i> Add Package
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{url('/user/package/list')}}">
+                                        <i class="fa fa-list"></i> Package List
+                                    </a>
+
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Page <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{url('/user/page/add')}}">
+                                        <i class="fa fa-plus"></i> Add Page
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{url('/user/page/list')}}">
+                                        <i class="fa fa-edit"></i> Edit Page
+                                    </a>
+
+
+
+                                </div>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/user/package/list')}}">Packages</a>
+                                <a class="nav-link" href="{{url('/user/transactions')}}">Transactions</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">Transactions</a>
+                                <a class="nav-link" href="{{url('/user/review/list')}}">Reviews</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">Settings</a>
-                            </li>
+                            {{--<li class="nav-item">--}}
+                                {{--<a class="nav-link" href="{{url('/user/settings')}}">Settings</a>--}}
+                            {{--</li>--}}
 
                         @else
 
@@ -77,17 +138,17 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">My Exchanges</a>
+                                <a class="nav-link" href="{{url('/user/exchanges')}}">My Exchanges</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">Give Review</a>
+                                <a class="nav-link" href="{{url('/user/review')}}">Give Review</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">Settings</a>
+                                <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('/')}}">Contact</a>
+                                <a class="nav-link" href="{{url('/contact')}}">Contact</a>
                             </li>
                         @endif
 
@@ -98,6 +159,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="{{ url('/user/profile') }}">
+                                    <i class="fa fa-user"></i> Profile
+                                </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

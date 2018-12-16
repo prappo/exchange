@@ -38,7 +38,7 @@
                                             <td>{{$package->sell}}</td>
                                             <td>{{$package->reserve}} {{$package->currency}}</td>
                                             <td>@if($package->available == "yes") Active @endif</td>
-                                            <td><a class="btn btn-xs btn-primary">Edit</a></td>
+                                            <td><a href="{{url('/user/package/edit/').'/'.$package->id}}" class="btn btn-xs btn-primary">Edit</a></td>
 
 
                                         </tr>

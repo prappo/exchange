@@ -39,13 +39,38 @@ class AdminController extends Controller
         }
     }
 
+    public function edit(Request $request)
+    {
+        try {
+            Packages::where('id', $request->id)->update([
+                'name' => $request->name,
+                'logo' => $request->logo,
+                'description' => $request->description,
+                'purchase' => $request->purchase,
+                'sell' => $request->sell,
+                'reserve' => $request->reserve,
+                'currency' => $request->currency,
+                'available' => $request->available
+            ]);
+
+            return "success";
+
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    public function editPackage($id)
+    {
+        $data = Packages::where('id', $id)->first();
+        return view('admin.editPackage', compact('data'));
+
+    }
+
     public function packageList()
     {
         return view('admin.packageList');
     }
 
-    public function edit($id)
-    {
-        return view('admin.editPackage', compact('id'));
-    }
+
 }

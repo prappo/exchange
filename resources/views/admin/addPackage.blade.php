@@ -112,45 +112,49 @@
 
 @section('js')
     <script>
-        $('#add').click(function () {
-            var name = $("#name").val(), logo = $('#logo').val(), description = $('#description').val(), purchase = $('#purchase').val(), sell = $('#sell').val(), reserve = $('#reserve').val();
-            var available = "";
 
-            if ($('#available').is(':checked')) {
-                available = "yes";
-            }
+        $(document).ready(function(e) {
+            $('#add').click(function () {
+                var name = $("#name").val(), logo = $('#logo').val(), description = $('#description').val(), purchase = $('#purchase').val(), sell = $('#sell').val(), reserve = $('#reserve').val();
+                var available = "";
 
-            if (name == "" || logo == "" || purchase == "" || sell == "" || reserve == "") {
-                return alert("Please enter necessary information");
-            }
-
-            $.ajax({
-                type: 'POST',
-                url: '{{url('/user/package/add')}}',
-                data: {
-                    'name': name,
-                    'logo': logo,
-                    'description': description,
-                    'purchase': purchase,
-                    'sell': sell,
-                    'reserve': reserve,
-                    'currency': $('#currency').val(),
-                    'available': available,
-                    '_token':'{{csrf_token()}}'
-
-                },
-                success: function (data) {
-                    if (data == "success") {
-                        alert("Package added successfully");
-                    } else {
-                        alert(data)
-                    }
-                },
-                error: function (data) {
-                    alert("Something went wrong");
-                    console.log(data.responseText);
+                if ($('#available').is(':checked')) {
+                    available = "yes";
                 }
-            })
+
+                if (name == "" || logo == "" || purchase == "" || sell == "" || reserve == "") {
+                    return alert("Please enter necessary information");
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{url('/user/package/add')}}',
+                    data: {
+                        'name': name,
+                        'logo': logo,
+                        'description': description,
+                        'purchase': purchase,
+                        'sell': sell,
+                        'reserve': reserve,
+                        'currency': $('#currency').val(),
+                        'available': available,
+                        '_token':'{{csrf_token()}}'
+
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("Package added successfully");
+                        } else {
+                            alert(data)
+                        }
+                    },
+                    error: function (data) {
+                        alert("Something went wrong");
+                        console.log(data.responseText);
+                    }
+                })
+            });
         });
+
     </script>
 @endsection

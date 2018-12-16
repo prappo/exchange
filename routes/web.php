@@ -12,16 +12,54 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
+
+Route::get('/page/contact','Page@contact');
+Route::get('/page/notice','Page@notice');
+Route::get('/page/testimonials','Page@testimonials');
+Route::get('/page/exchange','Page@exchange');
+
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/home', 'UserController@home');
+
 Route::get('/user/package/add', 'AdminController@addIndex');
 Route::post('/user/package/add', 'AdminController@add');
 Route::get('/user/package/list', 'AdminController@packageList');
-Route::get('/user/package/edit/{id}', 'AdminController@edit');
-Route::post('/package/info','PackageController@info');
+Route::get('/user/package/edit/{id}', 'AdminController@editPackage');
+Route::post('/user/package/update', 'AdminController@edit');
+Route::post('/package/info', 'PackageController@info');
+
+Route::get('/user/page/add', 'PageController@addPageIndex');
+Route::post('/user/page/add', 'PageController@add');
+Route::get('/user/page/list', 'PageController@pageList');
+Route::get('/user/page/edit/{id}', 'PageController@editPageIndex');
+Route::post('/user/page/update', 'PageController@edit');
+Route::post('/user/page/delete', 'PageController@delete');
+
+Route::get('/user/slider/add', 'SliderController@addSliderIndex');
+Route::post('/user/slider/add', 'SliderController@add');
+Route::get('/user/slider/list', 'SliderController@sliderList');
+Route::get('/user/slider/edit/{id}', 'SliderController@edit');
+Route::post('/user/slider/update', 'SliderController@update');
+Route::post('/user/slider/delete', 'SliderController@delete');
+
+
+Route::get('/user/review', 'ReviewController@addIndex');
+Route::post('/user/review/add', 'ReviewController@add');
+Route::get('/user/review/list', 'ReviewController@reviewList');
+Route::post('/user/review/delete','ReviewController@delete');
+
+
+Route::get('/user/profile','ProfileController@index');
+Route::post('/user/profile/update','ProfileController@update');
+
+
+
+
+Route::get('/exchange/{send}/{receive}/{amount}/{receiveAmount}', 'TransactionController@transaction');
