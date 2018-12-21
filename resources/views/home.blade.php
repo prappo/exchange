@@ -431,7 +431,8 @@
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span></td>
+                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                </td>
 
                                                 <td class="">
                                                 <span class="label label-info"><i
@@ -505,7 +506,8 @@
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span></td>
+                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                </td>
 
                                                 <td class="">
                                                 <span class="label label-success"><i
@@ -661,22 +663,26 @@
                     <div class="col-md-9">
                         <div class="section trending-ads">
                             <div class="row">
-                                <div align="center" class="col-md-2"><img src="{{url('/verified.jpeg')}}"></div>
-
-                                <div style="padding-top:15px" class="col-md-6">
-                                    <h2 align="center"> Buy
+                                <div style="padding:0px" class="col-md-1">
+                                    <div align="center"><img width="50px"
+                                                                              src="{{url('/verified.png')}}"></div>
+                                </div>
+                                <div style="padding:0px;margin: 0px" class="col-md-7">
+                                    <h2 style="text-align: left"> Buy
                                         Verified account</h2>
                                 </div>
-                                <div style="padding-top:30px" class="col-md-4">
-                                    <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> Buy Now</a>
+                                <div style="padding-top: 8px;margin: 0px" class="col-md-4">
+                                    <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i
+                                                class="fa fa-shopping-cart"></i> Buy Now</a>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row autoplay">
+                        <div style="margin-top: 10px;margin-bottom: 10px;" class="row autoplay">
 
                             @foreach(\App\bottomSlider::all() as $slider)
-                                <div><img style="border-radius: 50%; padding: 5px;" src="{{$slider->image}}">
+                                <div><img style="border-radius: 50%;width: 50%;padding-right:0px !important;"
+                                          src="{{$slider->image}}">
                                 </div>
                             @endforeach
 

@@ -39,8 +39,8 @@
                                 <div id="bit_exchange_results"></div>
                                 {{--Additional info start--}}
                                 <div style="display: none" id="additionalInfo">
-                                    <div class="">
-                                        <div class="row" id="bit_exchange_box">
+                                    <div class="content">
+                                        <div style="padding: 10px" class="row" id="bit_exchange_box">
                                             <div id="bit_exchange_results"></div>
 
                                             <div class="col-md-2"></div>
@@ -592,6 +592,22 @@
                             </form>
                         </div>
 
+
+                        <div class="row">
+                            <div style="padding:0px" class="col-md-1">
+                                <div align="center"><img width="50px"
+                                                         src="{{url('/verified.png')}}"></div>
+                            </div>
+                            <div style="padding:0px;margin: 0px" class="col-md-7">
+                                <h2 style="text-align: center"> Buy
+                                    Verified account</h2>
+                            </div>
+                            <div style="padding-top: 8px;margin: 0px" class="col-md-4">
+                                <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i
+                                            class="fa fa-shopping-cart"></i> Buy Now</a>
+                            </div>
+                        </div>
+
                         <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px; padding-left:15px;">
                             Testimonials
                         </h4>
@@ -630,17 +646,7 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="section trending-ads">
-                            <div class="row">
-                                <div align="center" class="col-md-2"><img src="{{url('/verified.jpeg')}}"></div>
 
-                                <div style="padding-top:15px" class="col-md-6">
-                                    <h2 align="center"> Buy
-                                        Verified account</h2>
-                                </div>
-                                <div style="padding-top:30px" class="col-md-4">
-                                    <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i class="fa fa-shopping-cart"></i> Buy Now</a>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="row autoplay">
