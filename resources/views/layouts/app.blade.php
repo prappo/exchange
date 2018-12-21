@@ -82,6 +82,26 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    Slider Bottom<span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{url('/user/bottom/slider/add')}}">
+                                        <i class="fa fa-plus"></i> Add Slider
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{url('/user/bottom/slider/list')}}">
+                                        <i class="fa fa-list"></i> Slider List
+                                    </a>
+
+
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Package <span class="caret"></span>
                                 </a>
 
@@ -123,6 +143,10 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('/user/review/list')}}">Reviews</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('/user/messages')}}">Messages</a>
                             </li>
 
                             <li class="nav-item">

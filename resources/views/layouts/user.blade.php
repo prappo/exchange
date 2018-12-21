@@ -70,6 +70,12 @@
             margin-top: 8px;
 
         }
+
+        .main-content {
+            min-height: 320px;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
     </style>
 
     @yield('css')
@@ -225,38 +231,24 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    @if(Auth::guest())
 
-                        <li><a href="{{url('/page/notice')}}"> NOTICE</a></li>
-                        <li><a href="{{url('/page/exchange')}}"> Buy-Sell</a></li>
-                        <li><a href="{{url('/page/testimonials')}}"> TESTIMONIALS</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/')}}">Buy - Sell</a>
+                    </li>
 
-                        <li><a href="{{url('/page/contact')}}"> CONTACT</a></li>
-                        @foreach(\App\Page::where('position','Top')->get() as $page)
-                            <li><a href="{{url('/page')}}/{{$page->id}}"> {{$page->title}}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/user/home')}}">My Exchanges</a>
+                    </li>
 
-                        @endforeach
-
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/')}}">Buy - Sell</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/user/home')}}">My Exchanges</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/user/review')}}">Give Review</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/page/contact')}}">Contact</a>
-                        </li>
-
-                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/user/review')}}">Give Review</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/page/contact')}}">Contact</a>
+                    </li>
 
                 </ul>
             </div>
@@ -349,36 +341,10 @@
 @yield('js')
 <script>
 
-    var payFrom = "";
-    var total = "";
-    var transactionId = "";
 
-    if ($(window).width() < 886) {
+    if ($(window).width() < 514) {
         $('#sliders').remove();
     }
-
-    var mobileView = "";
-    var isHome = "";
-
-    @if(Request::is('mobile'))
-        mobileView = "yes";
-    @endif
-
-            @if(Request::is('/'))
-
-        isHome = "yes";
-    @endif
-
-    if ($(window).width() < 886) {
-        if (mobileView != "yes") {
-            if (isHome == "yes")
-                window.location.replace('{{url('/mobile')}}');
-
-        }
-    }
-
-
-
 
     function bit_calculator() {
         var element = $('#receive').find('option:selected');
@@ -484,18 +450,6 @@
 
 
     $('#exchange').click(function () {
-
-        var isLogedIn = false;
-        @if(Auth::check())
-            isLogedIn = true;
-        @endif
-
-        if (isLogedIn == false) {
-            alert("You need to login first");
-            return window.location.replace('{{url('/login')}}');
-        }
-
-
         var element = $('#receive').find('option:selected');
         var element1 = $('#send').find('option:selected');
         var sendCurrency = element1.attr('data-currency');
@@ -503,8 +457,6 @@
 
         var sendPurchase = element1.attr('data-purchase');
         var receivePurchase = element.attr('data-purchase');
-        var sendName = element1.attr('data-name');
-        var receiveName = element.attr('data-name');
         var receive = $('#bit_amount_receive').val();
         var send = $('#bit_amount_send').val();
 
@@ -515,13 +467,13 @@
             if (send < 10) {
                 alert('The minimum amount for exchange is 10 USD');
             } else {
-                additionalInfo(sendName, receiveName);
+                additionalInfo();
             }
         } else {
             if (send < 2850) {
                 alert('The minimum amount for exchange is 2850');
             } else {
-                additionalInfo(sendName, receiveName);
+                additionalInfo();
             }
         }
 
@@ -531,121 +483,27 @@
 
     //    Transaction process
 
-    function additionalInfo(sendName, receiveName) {
-
+    function additionalInfo() {
         $('#exchangeForm').hide();
-        $('#addiName').html('Your ' + receiveName + ' account');
-
         $('#additionalInfo').show();
     }
 
-    function makeid() {
-        var text = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-        for (var i = 0; i < 20; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
-    }
-
-    console.log(makeid());
-
     function confirmation() {
-
-        if ($('#payFrom').val() == "") {
-            return alert("Please enter your account");
-        }
-        payFrom = $('#payFrom').val();
-        transactionId = makeid();
-        var element = $('#receive').find('option:selected');
-        var element1 = $('#send').find('option:selected');
-
-        var sendName = element1.attr('data-name');
-        var receiveName = element.attr('data-name');
-
-        var sendCurrency = element1.attr('data-currency');
-        var receiveCurrency = element.attr('data-currency');
-
-        $('#step2sendName').html(sendName);
-        $('#step2receiveName').html(receiveName);
-        $('#step2receiveAcc').html(receiveName);
-        $('#step2receiveFrom').html(payFrom);
-
-        $('#step2send').html($('#bit_amount_send').val());
-        $('#step2SendCurrency').html(sendCurrency);
-
-        $('#step2receive').html($('#bit_amount_receive').val());
-        $('#step2ReceiveCurrency').html(receiveCurrency);
-        $('#exchangeId').html(makeid());
-        $('#total').html($('#bit_amount_send').val());
-        $('#totalCurrency').html(sendCurrency);
-
-
         $('#additionalInfo').hide();
         $('#confirmation').show();
     }
 
     function transactionConfirm() {
-
-        var element = $('#receive').find('option:selected');
-        var element1 = $('#send').find('option:selected');
-
-        var sendName = element1.attr('data-name');
-        var receiveName = element.attr('data-name');
-
-        var sendCurrency = element1.attr('data-currency');
-        var receiveCurrency = element.attr('data-currency');
-        var receiveAccount = element.attr('data-account');
-
-
-        $('#step3receiverDetails').html(receiveName);
-        $('#step3receiverName').html(receiveName);
-        $('#step3account').html(receiveAccount);
-        $('#step3amount').html($('#bit_amount_send').val());
-        $('#step3currency').html(sendCurrency);
-        $('#step3a').html($('#bit_amount_send').val());
-        $('#step3c').html(sendCurrency);
-
         $('#confirmation').hide();
         $('#transactionConfirm').show();
     }
 
     function transactionSuccess() {
-        $('#successModal').modal();
-        $.ajax({
-            type: 'POST',
-            url: '{{url('/transaction')}}',
-            data: {
-                'transaction_id': transactionId,
-                'send': $('#send').val(),
-                'sendAmount': $('#bit_amount_send').val(),
-                'receive': $('#receive').val(),
-                'receiveAmount': $('#bit_amount_receive').val(),
-                'amount': $('#bit_amount_receive').val(),
-                'payFrom': payFrom,
-                'confirmationNumber': $('#transaction_confirmation_id').val(),
-                '_token': '{{csrf_token()}}'
-
-            },
-            success: function (data) {
-                $('.modal-body').html(data);
-            },
-            error: function (data) {
-                alert('Something went wrong, Please try again');
-                console.log(data.responseText);
-            }
-        });
-
+        $('#exampleModal').modal();
     }
 
     $('#ok').click(function () {
         location.reload();
-    });
-
-    $('#finish').click(function () {
-        alert("Thank you");
-        location.replace('{{url('/')}}');
     });
 
 

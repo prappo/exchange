@@ -22,6 +22,8 @@ class CreateTransictionsTable extends Migration
             $table->string('receive');
             $table->string('receiveAmount');
             $table->string('amount');
+            $table->string('payFrom');
+            $table->string('confirmationNumber');
             $table->string('details')->nullable();
             $table->string('status');
             $table->string('process_type');

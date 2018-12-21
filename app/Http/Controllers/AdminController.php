@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Packages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -16,6 +18,15 @@ class AdminController extends Controller
     {
         return view('admin.addPackage');
 
+    }
+
+    public function message()
+    {
+        if (Auth::user()->type != "admin") {
+            return "permission denied";
+        }
+        $data = Contact::all();
+        return view('admin.messages', compact('data'));
     }
 
     public function add(Request $request)

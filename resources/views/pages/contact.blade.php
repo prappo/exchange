@@ -96,7 +96,30 @@
     <script>
         $(document).ready(function () {
             $('#send').click(function () {
-                alert("Message Sent");
+                $.ajax({
+                    type: 'POST',
+                    url: '{{url('/page/contact')}}',
+                    data: {
+                        '_token': '{{csrf_token()}}',
+                        'name': $('#name').val(),
+                        'email': $('#email').val(),
+                        'subject': $('#subject').val(),
+                        'message':$('#message').val()
+                    },
+                    success: function (data) {
+                        if (data == "success") {
+                            alert("Your message sent!")
+                        } else {
+                            alert("Sorry Something went wrong, Please try again later");
+                            console.log(data);
+                        }
+                    },
+                    error: function (data) {
+                        alert("Sorry !, Something went wrong, Please try again later");
+                        console.log(data.responseText);
+                    }
+
+                });
             });
         });
 

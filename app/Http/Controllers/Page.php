@@ -26,6 +26,15 @@ class Page extends Controller
         return view('pages.exchange');
     }
 
+    public function buyAccount(){
+        return view('pages.buyAccount');
+    }
+
+    public function buyAccountAction(Request $request){
+        $data = $request;
+        return view('pages.buyAccountConfirmation',compact('data'));
+    }
+
     public function page($id)
     {
         $content = \App\Page::where('id',$id)->value('content');

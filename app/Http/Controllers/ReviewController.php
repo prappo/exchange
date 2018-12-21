@@ -15,6 +15,11 @@ class ReviewController extends Controller
 
     public function addIndex()
     {
+        return view('user.review');
+    }
+
+    public function addReview(){
+
         return view('user.addReview');
     }
 

@@ -13,33 +13,14 @@
                 <div class="section trending-ads">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
-                                <p><b>Mr. Malek</b></p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam aut,
-                                    consequuntur, dolor illum iure laboriosam laudantium necessitatibus nihil omnis quam
-                                    quibusdam ratione repellat suscipit ut voluptatum? Asperiores, neque.</p>
-                            </div>
+                            @foreach(\App\Review::all() as $review)
+                                <div class="col-md-4">
+                                    <p><b>{{\App\User::where('id',$review->userId)->value('name')}}</b></p>
+                                    <p>{{$review->comment}}</p>
+                                </div>
 
-                            <div class="col-md-4">
-                                <p><b>Mr. Malek</b></p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam aut,
-                                    consequuntur, dolor illum iure laboriosam laudantium necessitatibus nihil omnis quam
-                                    quibusdam ratione repellat suscipit ut voluptatum? Asperiores, neque.</p>
-                            </div>
+                            @endforeach
 
-                            <div class="col-md-4">
-                                <p><b>Mr. Malek</b></p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam aut,
-                                    consequuntur, dolor illum iure laboriosam laudantium necessitatibus nihil omnis quam
-                                    quibusdam ratione repellat suscipit ut voluptatum? Asperiores, neque.</p>
-                            </div>
-
-                            <div class="col-md-4">
-                                <p><b>Mr. Malek</b></p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A animi, aperiam aut,
-                                    consequuntur, dolor illum iure laboriosam laudantium necessitatibus nihil omnis quam
-                                    quibusdam ratione repellat suscipit ut voluptatum? Asperiores, neque.</p>
-                            </div>
 
                         </div>
                     </div>

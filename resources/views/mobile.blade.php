@@ -434,8 +434,8 @@
                                                     <span class="label label-default">{{$transaction->created_at}}</span></td>
 
                                                 <td class="">
-                                                <span class="label label-info"><i
-                                                            class="fa fa-clock-o"></i> Processing</span></td>
+                                                <span class="label label-success"><i
+                                                            class="fa fa-check"></i> Processing</span></td>
                                             </tr>
 
                                         @endforeach
@@ -521,68 +521,6 @@
                             </div>
                         </div>
 
-                        <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px; padding-left:15px;">
-                            Testimonials
-                        </h4>
-
-                        <div class="section trending-ads">
-                            <div class="row">
-                                <div class="col-md-12 review">
-                                    @foreach(\App\Review::all() as $review)
-                                        <div class="col-md-4">
-                                            <p><b>{{\App\User::where('id',$review->userId)->value('name')}}</b></p>
-                                            <p>{{$review->comment}}</p>
-                                        </div>
-
-                                    @endforeach
-
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div style="background: #579E3C; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
-                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
-                                         height="90%" src="{{url('/logos/bet365.jpg')}}">
-                                </div>
-                                <div style="background: #08855F ; height: 20px;color: white;text-align: center"><b>Bet365
-                                        Account</b></div>
-                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
-                                    <b>1000 BDT</b></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div style="background: #7E1F67; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
-                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
-                                         height="90%" src="{{url('/logos/skrill-logo.png')}}">
-                                </div>
-                                <div style="background: #552458 ; height: 20px;color: white;text-align: center"><b>Skrill
-                                        Account</b></div>
-                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
-                                    <b>1000 BDT</b></div>
-                            </div>
-                            <div class="col-md-4">
-                                <div style="background: #8DC640; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
-                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
-                                         height="90%" src="{{url('/logos/neteller-logo.png')}}">
-                                </div>
-                                <div style="background: #7ca049 ; height: 20px;color: white;text-align: center"><b>Netellar
-                                        Account</b></div>
-                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
-                                    <b>1000 BDT</b></div>
-                            </div>
-                        </div>
-
-
-                        <!-- end : latest buy sell (Completed)-->
-
-                    </div>
-                    <!-- end : col md 9 left col-->
-
-                    <!-- right col-->
-                    <div class="col-md-3">
                         <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px;"
                             class="mt-xs">Our Reserve</h4>
 
@@ -644,16 +582,48 @@
                             Track exchange</h4>
 
                         <div class="section">
-                            <form method="post" action="{{url('/transaction/track')}}">
-                                {{csrf_field()}}
+                            <form method="get" action="{{url('/')}}">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="transaction_id"
+                                    <input type="text" class="form-control" name="exchange"
                                            placeholder="Type here exchange id">
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-block">Track
                                 </button>
                             </form>
                         </div>
+
+                        <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px; padding-left:15px;">
+                            Testimonials
+                        </h4>
+
+                        <div class="section trending-ads">
+                            <div class="row">
+                                <div class="col-md-12 review">
+                                    @foreach(\App\Review::all() as $review)
+                                        <div class="col-md-4">
+                                            <p><b>{{\App\User::where('id',$review->userId)->value('name')}}</b></p>
+                                            <p>{{$review->comment}}</p>
+                                        </div>
+
+                                    @endforeach
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <!-- end : latest buy sell (Completed)-->
+
+                    </div>
+                    <!-- end : col md 9 left col-->
+
+                    <!-- right col-->
+                    <div class="col-md-3">
+
                     </div>
                 </div>
                 <br>
@@ -681,6 +651,39 @@
                             @endforeach
 
 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div style="background: #579E3C; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/bet365.jpg')}}">
+                                </div>
+                                <div style="background: #08855F ; height: 20px;color: white;text-align: center"><b>Bet365
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="background: #7E1F67; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/skrill-logo.png')}}">
+                                </div>
+                                <div style="background: #552458 ; height: 20px;color: white;text-align: center"><b>Skrill
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div style="background: #8DC640; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">
+                                    <img style="border-radius: 50%;display: block;margin-left: auto;margin-right: auto"
+                                         height="90%" src="{{url('/logos/neteller-logo.png')}}">
+                                </div>
+                                <div style="background: #7ca049 ; height: 20px;color: white;text-align: center"><b>Netellar
+                                        Account</b></div>
+                                <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
+                                    <b>1000 BDT</b></div>
+                            </div>
                         </div>
 
 

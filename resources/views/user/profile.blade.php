@@ -1,14 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.user')
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Profile</div>
+    <section id="main" class="clearfix home-default pt-xs">
+        <div class="container">
+            <div style="background: white;" class="main-content">
+                <br>
+                <div class="ad-profile section">
+                    <div class="user-profile">
+                        <div class="user">
+                            <h2>Hello, <a href="#" style="color:black;">{{Auth::user()->name}}</a></h2>
+
+                        </div>
+
+
+                    </div><!-- user-profile -->
+
+
+
+
+
+
+                </div>
+                <div style="padding-left: 30px" class="row">
+                    <h2>Profile</h2>
+                    <hr>
 
                     <div class="card-body">
                         <div class="form-group row">
-                            <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-right">Name</label>
 
                             <div class="col-md-6">
                                 <input id="name" placeholder="Your Name" type="text" value="{{$name}}"
@@ -68,9 +86,9 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right"></label>
 
                             <div class="col-md-6">
-                                <button id="update" class="btn btn-block btn-success"><i class="fa fa-save"></i> Update
-                                    Profile
-                                </button>
+
+
+                                <button id="update" class="btn btn-primary"><i class="fa fa-check"></i> Save Changes</button>
 
                             </div>
                         </div>
@@ -78,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 @endsection
 
@@ -93,7 +111,7 @@
                     data: {
                         'name': $('#name').val(),
                         'email': $('#email').val(),
-                        'phone':$('#phone').val(),
+                        'phone': $('#phone').val(),
                         'oldPass': $('#oldPassword').val(),
                         'newPass': $('#newPassword').val(),
                         '_token': '{{csrf_token()}}'
