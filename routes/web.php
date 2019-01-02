@@ -84,3 +84,4 @@ Route::post('/page/contact', 'ContactController@add');
 Route::post('/transaction', 'TransactionController@transaction');
 Route::get('/exchange/{id}', 'TransactionController@track');
 Route::post('/transaction/track', 'TransactionController@trackWidget');
+Route::post('/transaction/status','TransactionController@changeStatus');

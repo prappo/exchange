@@ -50,15 +50,27 @@ class TransactionController extends Controller
 
     public function track($id)
     {
+        $ifExist = "yes";
+
+        if (!Transiction::where('transaction_id', $id)->exists()) {
+            $ifExist = "no";
+        }
         $data = Transiction::where('transaction_id', $id)->first();
-        return view('track', compact('id', 'data'));
+        return view('track', compact('id', 'data', 'ifExist'));
     }
 
     public function trackWidget(Request $request)
     {
         $id = $request->transaction_id;
+
+        $ifExist = "yes";
+
+        if (!Transiction::where('transaction_id', $id)->exists()) {
+            $ifExist = "no";
+        }
+
         $data = Transiction::where('transaction_id', $request->transaction_id)->first();
-        return view('track', compact('id', 'data'));
+        return view('track', compact('id', 'data','ifExist'));
     }
 
     public static function package($id)
@@ -69,7 +81,7 @@ class TransactionController extends Controller
     public function changeStatus(Request $request)
     {
         try {
-            Transiction::where('transaction_id', $request->id)->update([
+            Transiction::where('id', $request->id)->update([
                 'status' => $request->status
             ]);
             return "success";
