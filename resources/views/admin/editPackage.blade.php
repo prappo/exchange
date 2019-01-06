@@ -93,6 +93,21 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="pos" class="col-md-4 col-form-label text-md-right">Position</label>
+
+                            <div class="col-md-6">
+
+                                <select id="pos" class="form-control">
+                                    <option @if($data->pos == 'send') selected @endif value="send">Send</option>
+                                    <option @if($data->pos == 'receive') selected @endif value="receive">Receive
+                                    <option @if($data->pos == 'both') selected @endif value="both">Both
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="available" class="col-md-4 col-form-label text-md-right">Available</label>
 
                             <div class="col-md-6">
@@ -152,6 +167,7 @@
                         'reserve': reserve,
                         'currency': $('#currency').val(),
                         'available': available,
+                        'pos': $('#pos').val(),
                         '_token': '{{csrf_token()}}'
 
                     },

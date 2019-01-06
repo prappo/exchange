@@ -93,6 +93,20 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="pos" class="col-md-4 col-form-label text-md-right">Position</label>
+
+                            <div class="col-md-6">
+
+                                <select id="pos" class="form-control">
+                                    <option value="send">Send</option>
+                                    <option value="receive">Receive</option>
+                                    <option value="both">Both</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="available" class="col-md-4 col-form-label text-md-right">Available</label>
 
                             <div class="col-md-6">
@@ -123,7 +137,7 @@
 @section('js')
     <script>
 
-        $(document).ready(function(e) {
+        $(document).ready(function (e) {
             $('#add').click(function () {
                 var name = $("#name").val(), logo = $('#logo').val(), description = $('#description').val(), purchase = $('#purchase').val(), sell = $('#sell').val(), reserve = $('#reserve').val(), account = $('#account').val();
                 var available = "";
@@ -141,7 +155,7 @@
                     url: '{{url('/user/package/add')}}',
                     data: {
                         'name': name,
-                        'account':account,
+                        'account': account,
                         'logo': logo,
                         'description': description,
                         'purchase': purchase,
@@ -149,7 +163,8 @@
                         'reserve': reserve,
                         'currency': $('#currency').val(),
                         'available': available,
-                        '_token':'{{csrf_token()}}'
+                        'pos': $('#pos').val(),
+                        '_token': '{{csrf_token()}}'
 
                     },
                     success: function (data) {

@@ -278,10 +278,12 @@
                                                     <div class="form-group">
                                                         <select id="send" class="form-control form_style_1 input-lg">
                                                             @foreach(\App\Packages::where('available','yes')->get() as $package)
+                                                                @if($package->pos == 'send' || $package->pos == 'both')
                                                                 <option data-purchase="{{$package->purchase}}"
                                                                         data-name="{{$package->name}}"
                                                                         value="{{$package->id}}"
                                                                         data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -310,10 +312,12 @@
                                                     <div class="form-group">
                                                         <select id="receive" class="form-control form_style_1 input-lg">
                                                             @foreach(\App\Packages::where('available','yes')->get() as $p)
-                                                                <option data-purchase="{{$p->purchase}}"
-                                                                        data-currency="{{$p->currency}}"
-                                                                        data-name="{{$p->name}}" ;
-                                                                        value="{{$p->id}}">{{$p->name}}</option>
+                                                                @if($p->pos == 'receive' || $p->pos == 'both')
+                                                                    <option data-purchase="{{$p->purchase}}"
+                                                                            data-currency="{{$p->currency}}"
+                                                                            data-name="{{$p->name}}" ;
+                                                                            value="{{$p->id}}">{{$p->name}}</option>
+                                                                @endif
 
                                                             @endforeach
 
@@ -665,7 +669,7 @@
                             <div class="row">
                                 <div style="padding:0px" class="col-md-1">
                                     <div align="center"><img width="50px"
-                                                                              src="{{url('/verified.png')}}"></div>
+                                                             src="{{url('/verified.png')}}"></div>
                                 </div>
                                 <div style="padding:0px;margin: 0px" class="col-md-7">
                                     <h2 style="text-align: left"> Buy

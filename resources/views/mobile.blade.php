@@ -44,12 +44,12 @@
                                             <div id="bit_exchange_results"></div>
 
                                             <div class="col-md-2"></div>
-                                            <div class="col-md-8">
+                                            <div style="margin: 10px !important;" class="col-md-8">
 
                                                 <h3><i class="fa fa-user"></i> Additional information</h3>
 
                                                 <form id="bit_exchange_form">
-
+\
                                                     <div class="form-group hide">
                                                         <label>Your email address</label>
                                                         <input type="text" class="form-control input-lg form_style_1"
@@ -170,7 +170,7 @@
                                 <div style="display: none" id="transactionConfirm" class="mt-xs">
                                     <div class="row" id="bit_exchange_box">
                                         <div class="col-md-2"></div>
-                                        <div class="col-md-8">
+                                        <div style="padding:32px !important;" class="col-md-8">
                                             <div id="bit_transaction_results">
                                                 <div class="alert alert-info"><i class="fa fa-info-circle"></i> নিচের
                                                     নাম্বার/আইডিতে টাকা/ডলার পাঠান, যে নাম্বার/আইডি থেকে পাঠিয়েছেন সেই
@@ -278,10 +278,12 @@
                                                     <div class="form-group">
                                                         <select id="send" class="form-control form_style_1 input-lg">
                                                             @foreach(\App\Packages::where('available','yes')->get() as $package)
-                                                                <option data-purchase="{{$package->purchase}}"
-                                                                        data-name="{{$package->name}}"
-                                                                        value="{{$package->id}}"
-                                                                        data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                                @if($package->pos == "send" || $package->pos == "both")
+                                                                    <option data-purchase="{{$package->purchase}}"
+                                                                            data-name="{{$package->name}}"
+                                                                            value="{{$package->id}}"
+                                                                            data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -310,10 +312,12 @@
                                                     <div class="form-group">
                                                         <select id="receive" class="form-control form_style_1 input-lg">
                                                             @foreach(\App\Packages::where('available','yes')->get() as $p)
-                                                                <option data-purchase="{{$p->purchase}}"
-                                                                        data-currency="{{$p->currency}}"
-                                                                        data-name="{{$p->name}}" ;
-                                                                        value="{{$p->id}}">{{$p->name}}</option>
+                                                                @if($p->pos == "receive" || $p->pos == "both")
+                                                                    <option data-purchase="{{$p->purchase}}"
+                                                                            data-currency="{{$p->currency}}"
+                                                                            data-name="{{$p->name}}" ;
+                                                                            value="{{$p->id}}">{{$p->name}}</option>
+                                                                @endif
 
                                                             @endforeach
 
@@ -431,7 +435,8 @@
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span></td>
+                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                </td>
 
                                                 <td class="">
                                                 <span class="label label-success"><i
@@ -505,7 +510,8 @@
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span></td>
+                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                </td>
 
                                                 <td class="">
                                                 <span class="label label-success"><i
@@ -578,35 +584,6 @@
                             <br/>
 
                         </div>
-                        <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px;">
-                            Track exchange</h4>
-
-                        <div class="section">
-                            <form method="get" action="{{url('/')}}">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="exchange"
-                                           placeholder="Type here exchange id">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Track
-                                </button>
-                            </form>
-                        </div>
-
-
-                        <div class="row">
-                            <div style="padding:0px" class="col-md-1">
-                                <div align="center"><img width="50px"
-                                                         src="{{url('/verified.png')}}"></div>
-                            </div>
-                            <div style="padding:0px;margin: 0px" class="col-md-7">
-                                <h2 style="text-align: center"> Buy
-                                    Verified account</h2>
-                            </div>
-                            <div style="padding-top: 8px;margin: 0px" class="col-md-4">
-                                <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i
-                                            class="fa fa-shopping-cart"></i> Buy Now</a>
-                            </div>
-                        </div>
 
                         <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px; padding-left:15px;">
                             Testimonials
@@ -630,6 +607,22 @@
 
 
 
+                        <div class="row">
+                            <div style="padding:0px" class="col-md-1">
+                                <div align="center"><img width="50px"
+                                                         src="{{url('/verified.png')}}"></div>
+                            </div>
+                            <div style="padding:0px;margin: 0px" class="col-md-7">
+                                <h2 style="text-align: center"> Buy
+                                    Verified account</h2>
+                            </div>
+                            <div style="padding-top: 8px;margin: 0px" class="col-md-4">
+                                <a href="{{url('/buy/account')}}" class="btn btn-primary btn-block"><i
+                                            class="fa fa-shopping-cart"></i> Buy Now</a>
+                            </div>
+                        </div>
+
+
 
 
                         <!-- end : latest buy sell (Completed)-->
@@ -649,15 +642,7 @@
 
                         </div>
 
-                        <div class="row autoplay">
 
-                            @foreach(\App\bottomSlider::all() as $slider)
-                                <div><img style="border-radius: 50%; padding: 5px;" src="{{$slider->image}}">
-                                </div>
-                            @endforeach
-
-
-                        </div>
 
                         <div class="row">
                             <div class="col-md-4">
@@ -690,6 +675,30 @@
                                 <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
                                     <b>1000 BDT</b></div>
                             </div>
+                        </div>
+
+                        <h4 style="background-color: #0CAADC; color: #fff; margin-bottom: 0px; font-size: 14px; border-top-left-radius: 5px; border-top-right-radius: 5px; padding: 10px;">
+                            Track exchange</h4>
+
+                        <div class="section">
+                            <form method="get" action="{{url('/')}}">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="exchange"
+                                           placeholder="Type here exchange id">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Track
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="row autoplay">
+
+                            @foreach(\App\bottomSlider::all() as $slider)
+                                <div><img style="border-radius: 50%; padding: 5px;" src="{{$slider->image}}">
+                                </div>
+                            @endforeach
+
+
                         </div>
 
 

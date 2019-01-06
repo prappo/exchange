@@ -191,9 +191,8 @@
 <section id="main" class="clearfix home-default pt-none">
     <div class="container">
         <div class="news-scroll">
-            <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();"> আপনার
-                অর্ডার নিশ্চিত করার পরে, লেনদেনটি সম্পন্ন হতে ২০মিনিটের বেশি সময় লাগলে ফোন করার জন্য অনুরোধ করা
-                হলো।
+            <marquee behavior="scroll" direction="left" onmouseover="this.stop();"
+                     onmouseout="this.start();"> {{\App\Http\Controllers\SettingsController::get('headerNotice')}}
             </marquee>
         </div>
     </div>
@@ -376,8 +375,6 @@
 
         }
     }
-
-
 
 
     function bit_calculator() {

@@ -43,6 +43,7 @@ class AdminController extends Controller
             $package->reserve = $request->reserve;
             $package->available = $request->available;
             $package->currency = $request->currency;
+            $package->pos = $request->pos;
             $package->save();
             return "success";
 
@@ -63,6 +64,7 @@ class AdminController extends Controller
                 'sell' => $request->sell,
                 'reserve' => $request->reserve,
                 'currency' => $request->currency,
+                'pos' => $request->pos,
                 'available' => $request->available
             ]);
 

@@ -24,6 +24,7 @@ class CreatePackagesTable extends Migration
             $table->string('reserve');
             $table->string('currency');
             $table->string('available');
+            $table->string('pos');
             $table->timestamps();
         });
     }
