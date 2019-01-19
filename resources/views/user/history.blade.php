@@ -22,7 +22,7 @@
                                     <div class="section" style="display:block;">
                                         <h3>My Exchanges</h3>
                                         <hr>
-                                        @foreach(\App\Transiction::where('userId',Auth::id())->where('status','processing')->get() as $transaction)
+                                        @foreach(\App\Transiction::where('userId',Auth::id())->get() as $transaction)
                                             <div class="panel panel-default">
                                                 <div class="panel-body">
                                                     <table class="table table-striped">
@@ -74,7 +74,7 @@
                                             <span class="label label-primary"><i
                                                         class="fa fa-clock-o"></i> Processing</span>
                                         @elseif($transaction->status == 'complete')
-                                            <span class="label label-warning"><i
+                                            <span class="label label-success"><i
                                                         class="fa fa-check"></i> Complete</span>
                                                                 @endif
                                                             </td>

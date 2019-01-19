@@ -18,24 +18,25 @@ class ReviewController extends Controller
         return view('user.review');
     }
 
-    public function addReview(){
+    public function addReview()
+    {
 
         return view('user.addReview');
     }
 
-    public function reviewList(){
+    public function reviewList()
+    {
 
         return view('admin.reviewList');
     }
 
     public function add(Request $request)
     {
-        if(Review::where('userId',Auth::user()->id)->exists()){
-            return "You already reviewed";
-        }
+
         try {
             $review = new Review();
             $review->userId = Auth::user()->id;
+            $review->type = $request->type;
             $review->comment = $request->comment;
             $review->save();
             return "success";

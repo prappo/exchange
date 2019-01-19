@@ -133,6 +133,10 @@
                                                         @endif
                                                     </span></td>
                                             </tr>
+                                            <tr>
+                                                <td>Our <span id="sendAccountName"></span> account</td>
+                                                <td><span class="pull-right" id="sendAccount"></span></td>
+                                            </tr>
                                             </tbody>
                                         </table>
                                         <br>
@@ -267,9 +271,19 @@
                                             <div class="row">
                                                 <div class="col-md-3 hidden-xs hidden-sm">
                                                     <div style="margin-top:50px;">
-                                                        <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
-                                                             id="bit_image_send" width="72px" height="72px"
-                                                             class="img-circle ">
+
+
+                                                        @foreach(\App\Packages::where('available','yes')->get() as $package)
+                                                            @if($package->pos == 'send' || $package->pos == 'both')
+                                                                <img src="{{$package->logo}}"
+                                                                     id="bit_image_send" width="72px" height="72px"
+                                                                     class="img-circle ">
+                                                                @break
+                                                            @endif
+
+
+                                                        @endforeach
+
                                                     </div>
                                                 </div>
                                                 <div class="col-md-9">
@@ -279,10 +293,13 @@
                                                         <select id="send" class="form-control form_style_1 input-lg">
                                                             @foreach(\App\Packages::where('available','yes')->get() as $package)
                                                                 @if($package->pos == 'send' || $package->pos == 'both')
-                                                                <option data-purchase="{{$package->purchase}}"
-                                                                        data-name="{{$package->name}}"
-                                                                        value="{{$package->id}}"
-                                                                        data-currency="{{$package->currency}}">{{$package->name}}</option>
+                                                                    <option
+                                                                            data-purchase="{{$package->purchase}}"
+                                                                            data-sell="{{$package->sell}}"
+                                                                            data-name="{{$package->name}}"
+                                                                            data-account="{{$package->account}}"
+                                                                            value="{{$package->id}}"
+                                                                            data-currency="{{$package->currency}}">{{$package->name}}</option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
@@ -314,6 +331,7 @@
                                                             @foreach(\App\Packages::where('available','yes')->get() as $p)
                                                                 @if($p->pos == 'receive' || $p->pos == 'both')
                                                                     <option data-purchase="{{$p->purchase}}"
+                                                                            data-sell="{{$p->sell}}"
                                                                             data-currency="{{$p->currency}}"
                                                                             data-name="{{$p->name}}" ;
                                                                             value="{{$p->id}}">{{$p->name}}</option>
@@ -334,10 +352,17 @@
                                                 </div>
                                                 <div class="col-md-3 hidden-xs hidden-sm">
                                                     <div style="margin-top:50px;">
-                                                        <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/07/6f/f6/076ff642-24dd-65d1-fc97-566422c77191/source/512x512bb.jpg"
-                                                             id="bit_image_receive"
-                                                             width="72px" height="72px"
-                                                             class="img-circle ">
+                                                        @foreach(\App\Packages::where('available','yes')->get() as $p)
+                                                            @if($p->pos == 'receive' || $p->pos == 'both')
+                                                                <img src="{{$p->logo}}"
+                                                                     id="bit_image_receive"
+                                                                     width="72px" height="72px"
+                                                                     class="img-circle ">
+                                                                @break
+                                                            @endif
+
+                                                        @endforeach
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -400,7 +425,7 @@
 
                                         <tbody>
 
-                                        @foreach(\App\Transiction::where('status','processing')->get() as $transaction)
+                                        @foreach(\App\Transiction::take(20)->where('status','processing')->orderBy('created_at','desc')->get() as $transaction)
 
                                             <tr>
                                                 <td>
@@ -420,22 +445,22 @@
                                                 </td>
 
                                                 <td>
-                                                    {{$transaction->amount}}
+                                                    {{$transaction->sendAmount}}
                                                     <span class="hidden-xs">
-                                            {{\App\Http\Controllers\TransactionController::package($transaction->send)->name}} {{\App\Http\Controllers\TransactionController::package($transaction->send)->currency}}                                           </span>
+                                            {{\App\Http\Controllers\TransactionController::package($transaction->send)->currency}}                                           </span>
 
 
                                                 </td>
 
                                                 <td class="">
                                         <span class="hidden-xs">
-                                            {{\App\User::where('id',$transaction->userId)->value('name')}}       </span>
+                                            {{\App\User::where('id',$transaction->userId)->value('name')}}</span>
 
 
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                    <span class="label label-default">{{\Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y')}}</span>
                                                 </td>
 
                                                 <td class="">
@@ -464,8 +489,7 @@
                                         <thead>
                                         <tr>
                                             <th>Send</th>
-                                            <th class="hidden-sm hidden-md hidden-lg">Rcv</th>
-                                            <th class="hidden-xs">Received</th>
+                                            <th>Received</th>
                                             <th>Amount</th>
                                             <th class="">User</th>
                                             <th class="">Date</th>
@@ -475,7 +499,7 @@
 
                                         <tbody>
 
-                                        @foreach(\App\Transiction::where('status','complete')->get() as $transaction)
+                                        @foreach(\App\Transiction::take(20)->where('status','complete')->orderBy('created_at','desc')->get() as $transaction)
 
                                             <tr>
                                                 <td>
@@ -495,9 +519,9 @@
                                                 </td>
 
                                                 <td>
-                                                    {{$transaction->amount}}
+                                                    {{$transaction->sendAmount}}
                                                     <span class="hidden-xs">
-                                            {{\App\Http\Controllers\TransactionController::package($transaction->send)->name}} {{\App\Http\Controllers\TransactionController::package($transaction->send)->currency}}                                           </span>
+                                           {{\App\Http\Controllers\TransactionController::package($transaction->send)->currency}}                                           </span>
 
 
                                                 </td>
@@ -510,7 +534,7 @@
                                                 </td>
 
                                                 <td class="">
-                                                    <span class="label label-default">{{$transaction->created_at}}</span>
+                                                    <span class="label label-default">{{\Carbon\Carbon::parse($transaction->created_at)->format('d/m/Y')}}</span>
                                                 </td>
 
                                                 <td class="">
@@ -557,7 +581,7 @@
                                 <div style="background: #08855F ; height: 20px;color: white;text-align: center"><b>Bet365
                                         Account</b></div>
                                 <div style="background: #1b1e21; height: 25px;color:white;text-align: center;padding-top:5px;border-radius: 0px 0px 5px 5px">
-                                    <b>1000 BDT</b></div>
+                                    <b>1500 BDT</b></div>
                             </div>
                             <div class="col-md-4">
                                 <div style="background: #7E1F67; width: 100%;height: 100px;border-radius: 5px 5px 0px 0px;padding-top:10px">

@@ -19,9 +19,25 @@
 
                         <div class="col-sm-12">
                             <div class="section" style="display:block;">
-                                <h3>My Testimonials <span class="pull-right"><a href="{{url('/user/review/add')}}" class="btn btn-info btn-xs"><i class="fa fa-plus"></i> New</a></span></h3>
+                                <h3>My Testimonials <span class="pull-right"><a href="{{url('/user/review/add')}}"
+                                                                                class="btn btn-info btn-xs"><i
+                                                    class="fa fa-plus"></i> New</a></span></h3>
                                 <hr>
-                                <div class="alert alert-info"><i class="fa fa-info-circle"></i> Still no have testimonials. <a href="{{url('/user/review/add')}}" style="color:#E3E3E3;">Click here</a> to submit testimonial.</div>
+                                @if(\App\Review::where('userId',Auth::user()->id)->count() == 0)
+                                    <div class="alert alert-info"><i class="fa fa-info-circle"></i> Still no have
+                                        testimonials. <a href="{{url('/user/review/add')}}">Click
+                                            here</a> to submit testimonial.
+                                    </div>
+                                @else
+                                    @foreach(\App\Review::where('userId',Auth::user()->id)->get() as $review)
+                                        <div class="alert @if($review->type == "Positive") alert-success @elseif($review->type == "Neutral") alert-info @else alert-danger @endif">
+                                            <i class="fa fa-star"></i>
+                                            {{$review->comment}}
+                                        </div>
+
+                                    @endforeach
+
+                                @endif
 
                             </div>
                         </div>

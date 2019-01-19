@@ -25,6 +25,7 @@ Route::get('/page/exchange', 'Page@exchange');
 Route::get('/page/history', 'Page@history');
 Route::get('/buy/account', 'Page@buyAccount');
 Route::post('/buy/account', 'Page@buyAccountAction');
+Route::post('/buy/account/confirm', 'Page@buyAccountComplete');
 Route::get('/page/{id}', 'Page@page');
 
 
@@ -32,6 +33,9 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/mobile', 'HomeController@mobile');
 Route::get('/user/home', 'UserController@home');
+Route::get('/user/home/history', 'UserController@history');
+Route::get('/user/home/all', 'UserController@all');
+Route::get('/user/home/completed', 'UserController@completed');
 
 Route::get('/user/package/add', 'AdminController@addIndex');
 Route::post('/user/package/add', 'AdminController@add');
@@ -59,7 +63,7 @@ Route::get('/user/bottom/slider/add', 'SliderController@addBottomSliderIndex');
 Route::post('/user/bottom/slider/add', 'SliderController@addBottomSlider');
 Route::get('/user/bottom/slider/list', 'SliderController@bottomSliderList');
 
-Route::post('/user/slider/delete', 'SliderController@bottomSliderDelete');
+Route::post('/user/bottom/slider/delete', 'SliderController@bottomSliderDelete');
 
 
 Route::get('/user/review', 'ReviewController@addIndex');
@@ -76,6 +80,13 @@ Route::post('/user/profile/update', 'ProfileController@update');
 Route::get('/user/settings', 'AdminController@settingsPage');
 Route::post('/user/settings/save', 'AdminController@saveSettings');
 
+Route::get('/user/buy/accounts', 'AdminController@buyAccountList');
+Route::get('/user/buy/account/add', 'AdminController@addVerifiedAccount');
+Route::post('/user/buy/account/add', 'AdminController@addVerifiedAccountAction');
+Route::get('/user/buy/account/edit/{id}', 'AdminController@editVerifiedAccount');
+Route::post('/user/buy/account/edit', 'AdminController@editVerifiedAccountAction');
+Route::get('/user/buy/account/edit', 'AdminController@accountList');
+
 
 Route::get('/user/messages', 'AdminController@message');
 Route::post('/page/contact', 'ContactController@add');
@@ -84,4 +95,5 @@ Route::post('/page/contact', 'ContactController@add');
 Route::post('/transaction', 'TransactionController@transaction');
 Route::get('/exchange/{id}', 'TransactionController@track');
 Route::post('/transaction/track', 'TransactionController@trackWidget');
-Route::post('/transaction/status','TransactionController@changeStatus');
+Route::post('/transaction/status', 'TransactionController@changeStatus');
+

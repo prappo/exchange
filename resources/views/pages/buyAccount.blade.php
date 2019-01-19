@@ -24,11 +24,16 @@
                                                         class="form-control input-lg form_style_1"
                                                         name="exchange_id">
                                                     @foreach(\App\VerifiedAccountList::all() as $account)
-                                                        <option data-cost="{{$account->cost}}">{{$account->name}} : {{$account->cost}} Taka</option>
+                                                        <option data-cost="{{$account->cost}}">{{$account->name}}
+                                                            : {{$account->cost}} Taka
+                                                        </option>
                                                     @endforeach
 
                                                 </select>
-                                                <input type="hidden" name="amount">
+                                                <input type="hidden" id="amount" value=""
+                                                       name="amount">
+                                                <input type="hidden" value="{{$account->name}}" name="account_name">
+
                                             </div>
                                             <div class="form-group">
                                                 <label>Your Name</label>
@@ -39,7 +44,8 @@
 
                                             <div class="form-group">
                                                 <label>Email Address</label>
-                                                <input required type="text" class="form-control" name="email" id="email">
+                                                <input required type="text" class="form-control" name="email"
+                                                       id="email">
 
                                             </div>
 
@@ -47,12 +53,6 @@
                                                 <label>Contact Number</label>
                                                 <input required type="text" class="form-control" name="contactNumber"
                                                        id="contactNumber">
-
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Amount</label>
-                                                <input required type="text" class="form-control" name="amount" id="amount">
 
                                             </div>
 
@@ -76,4 +76,17 @@
 
 @endsection
 
+@section('js')
+
+    <script>
+        $(document).ready(function () {
+            var element = $('#accountType').find('option:selected');
+            $('#amount').val(element.attr('data-cost'));
+        });
+        $('#accountType').on('change', function () {
+            var element = $(this).find('option:selected');
+            $('#amount').val(element.attr('data-cost'));
+        })
+    </script>
+@endsection
 

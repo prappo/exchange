@@ -89,7 +89,7 @@ class SliderController extends Controller
     public function bottomSliderDelete(Request $request)
     {
         try {
-            Slider::where('id', $request->id)->delete();
+            bottomSlider::where('id', $request->id)->delete();
             return "success";
         } catch (\Exception $exception) {
             return $exception->getMessage();

@@ -169,8 +169,8 @@
 
                                 <div class="col-md-6">
                                     <input name="headerNotice" type="text"
-                                           class="form-control" value="{{\App\Http\Controllers\SettingsController::get('headerNotice')}}" >
-
+                                           class="form-control"
+                                           value="{{\App\Http\Controllers\SettingsController::get('headerNotice')}}">
 
 
                                 </div>
@@ -183,6 +183,44 @@
                                 <div class="col-md-6">
                                     <textarea name="notice" type="text"
                                               class="form-control">{{\App\Http\Controllers\SettingsController::get('notice')}}</textarea>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right"></label>
+
+                                <div class="col-md-6">
+                                    <button id="add" type="submit" class="btn btn-block btn-success"><i
+                                                class="fa fa-save"></i>
+                                        Save
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Rocket Agent Number</div>
+                    <form method="POST" action="{{ url('/user/settings/save') }}">
+                        @csrf
+                        <div class="card-body">
+
+                            <div class="form-group row">
+                                <label for="headerNotice" class="col-md-4 col-form-label text-md-right">Number</label>
+
+                                <div class="col-md-6">
+                                    <input name="rocketAgent" type="text"
+                                           class="form-control"
+                                           value="{{\App\Http\Controllers\SettingsController::get('rocketAgent')}}">
 
 
                                 </div>

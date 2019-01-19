@@ -14,7 +14,7 @@
                                 <a href="{{url('/user/home/completed')}}" class="btn btn-success">Completed</a>
                             </div>
                         </div>
-                        @foreach($transactions = \App\Transiction::where('status','processing')->orderBy('created_at','desc')->paginate(5) as $data)
+                        @foreach($transactions = \App\Transiction::paginate(5) as $data)
 
                             <div style="border:2px solid gainsboro;margin: 10px" class="row">
                                 <div class="col-md-12">

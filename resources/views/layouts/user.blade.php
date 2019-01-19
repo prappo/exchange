@@ -243,6 +243,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/user/review')}}">Give Review</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/user/home/history')}}">History</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
                     </li>

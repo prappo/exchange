@@ -34,14 +34,14 @@
                                 </tr>
                                 <tr>
                                     <td><span class="pull-left">Rocket Agent</span></td>
-                                    <td><span id="step3account" class="pull-right">017XXXXXXX</span></td>
+                                    <td><span id="step3account" class="pull-right">{{\App\Http\Controllers\SettingsController::get('rocketAgent')}}</span></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><br></td>
                                 </tr>
                                 <tr>
                                     <td><span class="pull-left">Enter payment amount</span></td>
-                                    <td><span class="pull-right"><b id="step3amount"></b> 499</b> </span>
+                                    <td><span class="pull-right"><b id="step3amount"></b> {{$data->amount}} </b> </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -55,6 +55,7 @@
                                 </tbody>
                             </table>
                             <div class="form-group">
+                                <input type="hidden" value="{{$id}}" id="id">
                                 <label>Enter transaction number/batch</label>
                                 <input type="text" class="form-control"
                                        id="transaction_confirmation_id"

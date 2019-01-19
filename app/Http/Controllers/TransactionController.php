@@ -28,7 +28,7 @@ class TransactionController extends Controller
             $transaction->amount = $request->amount;
             $transaction->payFrom = $request->payFrom;
             $transaction->confirmationNumber = $request->confirmationNumber;
-            $transaction->status = 'pending';
+            $transaction->status = 'processing';
             $transaction->process_type = 'menual';
             $transaction->save();
 

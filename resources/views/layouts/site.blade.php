@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="http://prappo.github.io">
+    <meta name="author" content="https://prappo.github.io">
     <meta name="description"
-          content="buyselldollar.com is the trusted website for dollar buy, sell and exchange in Bangladesh. Buy &amp; Sell Dollar 100% reliable and always sufficient in site, we change all kind of virtual dollar like neteller, Skrill, Paypal, Perfect Money in Banglade.">
+          content="onlinedollarbuysell.com is the trusted website for dollar buy, sell and exchange in Bangladesh. Buy &amp; Sell Dollar 100% reliable and always sufficient in site, we change all kind of virtual dollar like neteller, Skrill, Paypal, Perfect Money in Banglade.">
     <meta name="keywords"
           content="dollar buy sell in bd, online dollar buy sell in bangladesh, buy neteller dollar in bangladesh, buy and sell skrill dollar in bd, skrill dollar buy sell, dollar buy sell exchange, perfect money to bkash, bkash to neteller, paypal dollar buy sell bd">
 
@@ -31,7 +31,7 @@
     <script src="{{url('/js/bootstrap.min.js')}}"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
     <style>
         .slider {
@@ -248,6 +248,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/user/review')}}">Give Review</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('/user/home/history')}}">History</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/user/profile')}}">Settings</a>
                         </li>
@@ -286,8 +290,8 @@
             <div style="padding-top: 20px;padding-left: 10%;padding-bottom: 30px;" class="col-md-4">
                 <p><b><h3>Quick Links</h3></b></p>
                 <ul>
-                    {{--<li><a href="#"><h4>Buy-Sell</h4></a></li>--}}
-                    {{--<li><a href="#"><h4>Testimonials</h4></a></li>--}}
+                    <li><a href="{{url('/page/exchange')}}"><h4>Buy-Sell</h4></a></li>
+                    <li><a href="{{url('/page/testimonials')}}"><h4>Testimonials</h4></a></li>
                     {{--<li><a href="#"><h4>Affliate</h4></a></li>--}}
                     @foreach(\App\Page::where('position','Bottom Left')->get() as $page)
                         <li><a href="{{url('/page')}}/{{$page->id}}"><h4>{{$page->title}}</h4></a></li>
@@ -311,13 +315,14 @@
             <div style="padding-top: 20px;padding-left: 10%;padding-bottom: 30px;" class="col-md-4">
                 <p><b><h3>Language</h3></b></p>
                 <ul>
-                    {{--<li><a href="#"><h4>English</h4></a></li>--}}
+                    <li><a href="{{url('/')}}"><h4>English</h4></a></li>
                     {{--<li><a href="#"><h4>About</h4></a></li>--}}
                     {{--<li><a href="#"><h4>Contact</h4></a></li>--}}
                     @foreach(\App\Page::where('position','Bottom Right')->get() as $page)
                         <li><a href="{{url('/page')}}/{{$page->id}}"><h4>{{$page->title}}</h4></a></li>
 
                     @endforeach
+                    <li><a href="{{url('/page/contact')}}"><h4>Contact</h4></a></li>
                 </ul>
             </div>
 
@@ -332,21 +337,88 @@
     </div><!-- footer-bottom -->
 </footer><!-- footer -->
 
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-info">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Login with your account</h4>
+            </div>
+            <div class="modal-body modal-spa">
+                <div id="login_results"></div>
+                <div id="bit_require_login">
+                    <div class="alert alert-info"><i class="fa fa-info-circle"></i> You must login to your account to
+                        continue exchange.
+                    </div>
+                </div>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    @if ($errors->has('email'))
+                        <script>
+                            $('#loginModal').modal();
+                        </script>
 
+                        <div class="alert alert-danger"><i class="fa fa-times"></i> Invalid email address or Password
+                        </div>
+                    @endif
+
+                    @if ($errors->has('password'))
+                        <script>
+                            $('#loginModal').modal();
+                        </script>
+
+                        <div class="alert alert-danger"><i class="fa fa-times"></i> Invalid email address or Password
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="text" class="form-control input-lg" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password">
+                        <br>
+                        <a style="color:cornflowerblue" href="{{url('/')}}/password/reset">Forgot password?</a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="remember_me" value="yes"> Remember me </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-block btn-success pull-right btn-lg">Login</button>
+                        </div>
+
+                        <div class="col-md-5">
+                            <a href="{{url('/register')}}" class="btn btn-block btn-primary pull-right btn-lg">Create
+                                Account</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- //login -->
 <!-- JS -->
 
 <script src="{{url('/js/owl.carousel.min.js')}}"></script>
-<script src="{{url('/js/smoothscroll.min.js')}}"></script>
+
 <script src="{{url('/js/scrollup.min.js')}}"></script>
 <script src="{{url('/js/price-range.js')}}"></script>
 <script src="{{url('/js/jquery.countdown.js')}}"></script>
 {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>--}}
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <script src="{{url('/js/custom.js')}}"></script>
 @yield('js')
 <script>
+
 
     var payFrom = "";
     var total = "";
@@ -384,7 +456,9 @@
         var receiveCurrency = element.attr('data-currency');
 
         var sendPurchase = element1.attr('data-purchase');
+        var sendSell = element1.attr('data-sell');
         var receivePurchase = element.attr('data-purchase');
+        var receiveSell = element.attr('data-sell');
         var result = "";
         if (sendCurrency == receiveCurrency) {
             $('#bit_amount_receive').val($('#bit_amount_send').val());
@@ -393,7 +467,7 @@
             $('#bit_amount_receive').val(result.toFixed(2));
         }
         else if (sendCurrency == 'BDT' && receiveCurrency == 'USD') {
-            result = parseInt($('#bit_amount_send').val()) / parseInt(receivePurchase);
+            result = parseInt($('#bit_amount_send').val()) / parseInt(receiveSell);
             $('#bit_amount_receive').val(result.toFixed(2));
         }
         else {
@@ -410,6 +484,7 @@
     $('#send').on('change', function (e) {
         var element = $(this).find('option:selected');
         var purchase = element.attr("data-purchase");
+        var receive = $('#receive').find('option:selected');
 
 
         var id = $(this).val();
@@ -422,12 +497,18 @@
             },
             success: function (data) {
                 $('#bit_image_send').attr('src', data['data'][0]['logo']);
-                if (data['data'][0]['currency'] == 'BDT') {
-                    $('#bit_amount_send').val(95);
+                if (data['data'][0]['currency'] == 'BDT' && receive.attr('data-currency') == 'USD') {
+                    $('#bit_amount_send').val(data['data'][0]['sell']);
                     $('#bit_reserve').html(data['data'][0]['reserve']);
+                    $('#bit_exchange_rate').html(receive.attr('data-purchase') + ' BDT = 1 dollar');
                     bit_calculator();
 
-                } else {
+                }
+                else if (data['data'][0]['currency'] == 'BDT' && receive.attr('data-currency') == 'BDT') {
+                    $('#bit_exchange_rate').html('1 BDT = 1 BDT');
+                    bit_calculator();
+                }
+                else {
                     $('#bit_amount_send').val(1);
                     $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
                     $('#bit_reserve').html(data['data'][0]['reserve']);
@@ -444,6 +525,7 @@
 
     $('#receive').on('change', function (e) {
         var element = $(this).find('option:selected');
+        var send = $('#send').find('option:selected');
         var purchase = element.attr("data-purchase");
 
 
@@ -457,14 +539,20 @@
             },
             success: function (data) {
                 $('#bit_image_receive').attr('src', data['data'][0]['logo']);
-                if (data['data'][0]['currency'] == 'BDT') {
-                    $('#bit_amount_send').val(95);
+                if (data['data'][0]['currency'] == 'BDT' && send.attr('data-currency') == 'USD') {
+                    $('#bit_amount_send').val(data['data'][0]['purchase']);
+                    $('#bit_exchange_rate').html(send.attr('data-purchase') + ' BDT = 1 dollar');
                     bit_calculator();
 
 
-                } else {
+                }
+                else if (data['data'][0]['currency'] == 'BDT' && send.attr('data-currency') == 'BDT') {
+                    $('#bit_exchange_rate').html('1 BDT = 1 BDT');
+                    bit_calculator();
+                }
+                else {
                     $('#bit_amount_send').val(1);
-                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
+                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['sell'] + ' BDT');
                     bit_calculator();
                 }
 
@@ -488,8 +576,7 @@
         @endif
 
         if (isLogedIn == false) {
-            alert("You need to login first");
-            return window.location.replace('{{url('/login')}}');
+            return $('#loginModal').modal();
         }
 
 
@@ -564,6 +651,10 @@
         var sendCurrency = element1.attr('data-currency');
         var receiveCurrency = element.attr('data-currency');
 
+        $('#sendAccountName').html(element1.html());
+        $('#sendAccount').html(element1.attr('data-account'));
+
+
         $('#step2sendName').html(sendName);
         $('#step2receiveName').html(receiveName);
         $('#step2receiveAcc').html(receiveName);
@@ -596,9 +687,9 @@
         var receiveAccount = element.attr('data-account');
 
 
-        $('#step3receiverDetails').html(receiveName);
-        $('#step3receiverName').html(receiveName);
-        $('#step3account').html(receiveAccount);
+        $('#step3receiverDetails').html(sendName);
+        $('#step3receiverName').html(sendName);
+        $('#step3account').html(element1.attr('data-account'));
         $('#step3amount').html($('#bit_amount_send').val());
         $('#step3currency').html(sendCurrency);
         $('#step3a').html($('#bit_amount_send').val());
@@ -609,6 +700,11 @@
     }
 
     function transactionSuccess() {
+
+        if ($('#transaction_confirmation_id').val() == "") {
+            return alert("Enter Transaction confirmation number");
+        }
+
         $('#successModal').modal();
         $.ajax({
             type: 'POST',
@@ -641,8 +737,74 @@
     });
 
     $('#finish').click(function () {
-        alert("Thank you");
-        location.replace('{{url('/')}}');
+        if ($('#transaction_confirmation_id').val() == "") {
+            return alert("Enter Transaction confirmation number");
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '{{url('/buy/account/confirm')}}',
+            data: {
+                'id': $('#id').val(),
+                'transaction_confirmation_id': $('#transaction_confirmation_id').val(),
+                '_token': '{{csrf_token()}}'
+            }, success: function (data) {
+                if (data == "success") {
+                    alert("Thank you");
+                    location.replace('{{url('/')}}');
+                } else {
+                    alert(data);
+                }
+            },
+            error: function (data) {
+                alert("Something went wrong");
+                console.log(data.responseText);
+            }
+        });
+
+    });
+
+
+    $(document).ready(function () {
+        var element = $('#send').find('option:selected');
+        var purchase = element.attr("data-purchase");
+        var receive = $('#receive').find('option:selected');
+
+
+        var id = $('#send').val();
+        $.ajax({
+            url: '{{url('/package/info')}}',
+            type: 'POST',
+            data: {
+                'id': id,
+                '_token': '{{csrf_token()}}'
+            },
+            success: function (data) {
+
+                if (data['data'][0]['currency'] == 'BDT' && receive.attr('data-currency') == 'USD') {
+                    $('#bit_amount_send').val(data['data'][0]['sell']);
+                    $('#bit_reserve').html(data['data'][0]['reserve']);
+                    $('#bit_exchange_rate').html(receive.attr('data-purchase') + ' BDT = 1 dollar');
+                    bit_calculator();
+
+                }
+                else if (data['data'][0]['currency'] == 'BDT' && receive.attr('data-currency') == 'BDT') {
+                    $('#bit_exchange_rate').html('1 BDT = 1 BDT');
+                    bit_calculator();
+                }
+                else {
+                    $('#bit_amount_send').val(1);
+                    $('#bit_exchange_rate').html('1 dollar = ' + data['data'][0]['purchase'] + ' USD');
+                    $('#bit_reserve').html(data['data'][0]['reserve']);
+                }
+
+                bit_calculator();
+
+
+            }
+
+
+        });
     });
 
 

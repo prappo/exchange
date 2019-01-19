@@ -25,27 +25,21 @@
                                     <h3>Submit testimonial</h3>
                                     <hr>
 
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <select class="form-control" id="type">
+                                            <option value="Positive">Positive</option>
+                                            <option value="Neutral">Neutral</option>
+                                            <option value="Negative">Negative</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Feedback</label>
+                                        <textarea class="form-control input-lg form_style_1" id="comment"
+                                                  rows="3"></textarea>
+                                    </div>
+                                    <button class="btn btn-primary" id="add"><i class="fa fa-plus"></i></button>
 
-
-                                        <div class="form-group">
-                                            <label>Buy-Sell</label>
-                                            <select class="form-control input-lg form_style_1" name="exchange_id">
-                                                <option>Still no have Buy-Sell.</option>		</select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Type</label>
-                                            <select class="form-control" name="type">
-                                                <option value="1">Positive</option>
-                                                <option value="2">Neutral</option>
-                                                <option value="3">Negative</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Feedback</label>
-                                            <textarea class="form-control input-lg form_style_1" name="content" rows="3"></textarea>
-                                        </div>
-                                        <button class="btn btn-primary" name="bit_submit"><i class="fa fa-plus"></i> </button>
-                                    
 
                                 </div>
                             </div><!-- my-ads -->
@@ -64,17 +58,22 @@
 
         $(document).ready(function (e) {
             $('#add').click(function () {
+                if ($("#comment").val() == "") {
+                    return alert("Write Something");
+                }
                 $.ajax({
                     type: 'POST',
                     url: '{{url('/user/review/add')}}',
                     data: {
 
                         'comment': $('#comment').val(),
+                        'type': $('#type').val(),
                         '_token': '{{csrf_token()}}'
                     },
                     success: function (data) {
                         if (data == "success") {
                             alert("Success");
+                            location.reload();
                         } else {
                             alert(data);
                         }

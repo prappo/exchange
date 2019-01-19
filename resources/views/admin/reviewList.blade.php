@@ -13,6 +13,7 @@
                                     <thead>
                                     <tr>
                                         <th>User Name</th>
+                                        <th>Type</th>
 
                                         <th>Comment</th>
 
@@ -26,6 +27,7 @@
 
                                         <tr>
                                             <td>{{\App\User::where('id',$review->userId)->value('name')}}</td>
+                                            <td>{{$review->type}}</td>
                                             <td>{{$review->comment}}</td>
 
                                             <td>

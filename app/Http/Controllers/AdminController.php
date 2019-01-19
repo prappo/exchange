@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Packages;
+use App\VerifiedAccountList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -102,6 +103,77 @@ class AdminController extends Controller
             }
         }
         return "Saved. Go back" . "<a href='" . url('/user/settings') . "'>Click here</a>";
+    }
+
+    public function buyAccountList()
+    {
+        if (Auth::user()->type == "admin") {
+            return view('admin.buyAccounts');
+        } else {
+            return "Access denied";
+        }
+    }
+
+    public function addVerifiedAccount()
+    {
+        if (Auth::user()->type == "admin") {
+            return view('admin.addAccount');
+        } else {
+            return "Access denied";
+        }
+
+    }
+
+    public function addVerifiedAccountAction(Request $request)
+    {
+        try {
+            $account = new VerifiedAccountList();
+            $account->name = $request->name;
+            $account->cost = $request->cost;
+            $account->save();
+            return "success";
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    public function editVerifiedAccountList()
+    {
+        if (Auth::user()->type == "admin") {
+            return view('admin.editAccountList');
+        } else {
+            return "Access denied";
+        }
+    }
+
+    public function editVerifiedAccount($id)
+    {
+        $name = VerifiedAccountList::where('id', $id)->value('name');
+        $cost = VerifiedAccountList::where('id', $id)->value('cost');
+
+        return view('admin.editAccount', compact('name', 'cost', 'id'));
+    }
+
+    public function editVerifiedAccountAction(Request $request)
+    {
+        try {
+            VerifiedAccountList::where('id', $request->id)->update([
+                'name' => $request->name,
+                'cost' => $request->cost
+            ]);
+            return "success";
+        } catch (\Exception $exception) {
+            return $exception->getMessage();
+        }
+    }
+
+    public function accountList()
+    {
+        if (Auth::user()->type == "admin") {
+            return view('admin.accountList');
+        } else {
+            return "Access denied";
+        }
     }
 
 
